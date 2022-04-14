@@ -1,0 +1,7 @@
+{
+  "name": "GFApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
