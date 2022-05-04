@@ -5,7 +5,6 @@ const routes = require('./API/routes/comment');
 require('./Config/db')
 
 
-
 const app = express();
 app.use(express.json()); // Parse Json
 

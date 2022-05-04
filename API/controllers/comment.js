@@ -1,34 +1,51 @@
 const Comment = require('../models/comment')
 
-const getComments = ((req, res) => {
-  Comment.find({})
-      .then(result => res.status(200).json({ result }))
-      .catch(error => res.status(500).json({msg: error}))
-})
 
-const getComment = ((req, res) => {
+
+const getComments =  async (req, res) => {
+  Comment.find({})
+      .then(result =>{
+       res.status(200).json({data: result })
+      })
+      .catch(error => res.status(500).json({msg: error}))
+}
+
+const getComment = async (req, res) => {
   Comment.findOne({ _id: req.params.commentID })
   .then(result => res.status(200).json({ result }))
   .catch(() => res.status(404).json({msg: 'Comment not found'}))
-})
+}
 
-const createComment = ((req, res) => {
-  Comment.create(req.body)
-  .then(result => res.status(200).json({ result }))
-  .catch((error) => res.status(500).json({msg:  error }))
-})
+const createComment = async (req, res) => {
+  try {
+    const { _id, _iduser, _idRestaurant,ContenuTexte,Note } = req.body
 
-const updateComment = ((req, res) => {
+    // Validation des données reçues
+    if ( !_id || !_iduser || !_idRestaurant || !ContenuTexte || !Note) {
+        return res.status(400).json({ message: `Data Missing` })
+    }
+    let comment = await Comment.findOne({ _id: _id })
+    if (comment !== null) {
+        return res.status(400).json({ message: `Comment :${_id} existed` })
+    }
+    comment = await Comment.create(req.body)
+    return res.json({ message: `Comment created`, data: comment })
+}catch (err){
+    return res.status(500).json({ message: `Database error`, error: err })
+}
+}
+
+const updateComment = async (req, res) => {
   Comment.findOneAndUpdate({ _id: req.params.commentID }, req.body, { new: true, runValidators: true })
   .then(result => res.status(200).json({ result }))
   .catch((error) => res.status(404).json({msg: 'Comment not found' }))
-})
+}
 
-const deleteComment = ((req, res) => {
+const deleteComment = async (req, res) => {
   Comment.findOneAndDelete({ _id: req.params.commentID })
   .then(result => res.status(200).json({ result }))
   .catch((error) => res.status(404).json({msg: 'Comment not found' }))
-})
+}
 
 module.exports = {
   getComments,
