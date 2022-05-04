@@ -1,0 +1,36 @@
+.bg-img {
+  padding: 1px;
+  height: 100%;
+  width: 100%;
+  background-image: url('../../assets/icon/GSiwme6.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.padding{
+  padding: 5%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 280px;
+  position: relative;
+}
+
+.logo ion-avatar
+{
+  height: 225px;
+  width: 225px;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ion-item{
+  --ion-background-color: transparent!important;
+}
