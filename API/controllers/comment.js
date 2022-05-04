@@ -3,17 +3,31 @@ const Comment = require('../models/comment')
 
 
 const getComments =  async (req, res) => {
-  Comment.find({})
-      .then(result =>{
-       res.status(200).json({data: result })
-      })
-      .catch(error => res.status(500).json({msg: error}))
+  Comment.find()  
+    try {
+       let comment = await Comment.find()
+        return res.json({ data: comment })
+    }catch (err){
+        return res.status(500).json({ message: `Database error`, error: err })
+    }
 }
 
 const getComment = async (req, res) => {
-  Comment.findOne({ _id: req.params.commentID })
-  .then(result => res.status(200).json({ result }))
-  .catch(() => res.status(404).json({msg: 'Comment not found'}))
+  let commentId = parseInt(req.params.commentID)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try{
+      let comment = await Comment.findOne( { _id: commentId })
+      if (comment === null) {
+          return res.status(404).json({ message: `the comment does not exist ` })
+      }
+
+      return res.json({ data: comment })
+  }catch (err){
+      return res.status(500).json({ message: `Erreur database`, error: err })
+  }
 }
 
 const createComment = async (req, res) => {
@@ -36,15 +50,37 @@ const createComment = async (req, res) => {
 }
 
 const updateComment = async (req, res) => {
-  Comment.findOneAndUpdate({ _id: req.params.commentID }, req.body, { new: true, runValidators: true })
-  .then(result => res.status(200).json({ result }))
-  .catch((error) => res.status(404).json({msg: 'Comment not found' }))
+  let commentId = parseInt(req.params.commentID)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try {
+    let comment = await Comment.findOneAndUpdate({ _id: req.params.commentID }, req.body, { new: true, runValidators: true })
+    if (comment === null) {
+      return res.status(404).json({ message: `the comment does not exist ` })
+  }
+    return res.json({ data: comment })
+ }catch (err){
+     return res.status(500).json({ message: `Comment not found`, error: err })
+ }
 }
 
 const deleteComment = async (req, res) => {
-  Comment.findOneAndDelete({ _id: req.params.commentID })
-  .then(result => res.status(200).json({ result }))
-  .catch((error) => res.status(404).json({msg: 'Comment not found' }))
+  let commentId = parseInt(req.params.commentID)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try {
+    let comment = await Comment.findOneAndDelete({ _id: req.params.commentID })
+    if (comment === null) {
+      return res.status(404).json({ message: `the comment does not exist ` })
+  }
+    return res.json({ data: comment ,message:"Comment removed"})
+ }catch (err){
+     return res.status(500).json({ message: `Comment not found`, error: err })
+ }
 }
 
 module.exports = {
