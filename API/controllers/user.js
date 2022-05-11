@@ -20,7 +20,7 @@ const getUser = async (req, res) => {
         return res.status(400).json({ message: `Parameter missing` })
     }
     try {
-        let user = await User.findOne({ _id: userID })
+        let user = await User.findOne({ _id: req.params.userID })
         if (user === null) {
             return res.status(404).json({ message: `User does not exist ` })
         }
@@ -41,7 +41,7 @@ const createUser = async (req, res) => {
         }
         let user = await User.findOne({ _id: _id })
         if (user !== null) {
-            return res.status(400).json({ message: `User :${_id} existed` })
+            return res.status(400).json({ message: `The user :${_id} does not exist` })
         }
         user = await User.create(req.body)
         return res.json({ message: `User created`, data: user })
@@ -84,4 +84,4 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = { getAllUsers, getUser, createUser, updateUser, deleteUser }
+module.exports = { getAllUsers, getUser, createUser, updateUser, deleteUser,createUser }

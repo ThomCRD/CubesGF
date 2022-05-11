@@ -26,13 +26,13 @@ const checkTokenMiddleware = (req , res, next) =>{
     console.log(token)
 
     if(!token){
-        return res.status(401).json({message:`Holaa mais tu viens en soirée sans cheddar`})
+        return res.status(401).json({message:`Not Token`})
     }
     // Vérification de la validité
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
         console.log(decodedToken)
         if(err){
-            return res.status(401).json({message: `Holaa mais c'est pas le bon cheddar ca !!!!!`})
+            return res.status(401).json({message: `Wrong Token`})
         }
         next()
     })

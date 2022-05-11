@@ -7,7 +7,7 @@ require('dotenv').config();
 
 // Create Schema Instance and add schema propertise
 const userSchema = new mongoose.Schema({
-    _id: { type: String, required: true },
+    _id: { type: String, required: true,createIndexes: { unique: true }},
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: {
@@ -16,7 +16,12 @@ const userSchema = new mongoose.Schema({
         validate: [isEmail, 'invalid email'],
         createIndexes: { unique: true },
       },
-      password: { type: String, required: true },
+      password: { 
+        type: String, 
+        required: true,
+        max: 2048,
+        min: 6,
+       },
       phone: { type: String, required: true },
  
 });
@@ -25,13 +30,13 @@ userSchema.pre("save", function (next) {
   const user = this
 
   if (this.isModified("password") || this.isNew) {
-    bcrypt.genSalt(10, function (saltError, salt) {
-      if (saltError) {
-        return next(saltError)
+    bcrypt.genSalt(10, function (err, salt) {
+      if (err) {
+        return next(err)
       } else {
-        bcrypt.hash(user.password, salt, function(hashError, hash) {
-          if (hashError) {
-            return next(hashError)
+        bcrypt.hash(user.password, salt, function(err, hash) {
+          if (err) {
+            return next(err)
           }
 
           user.password = hash
@@ -44,17 +49,9 @@ userSchema.pre("save", function (next) {
   }
 })
 
-userSchema.methods.comparePassword = function(password, callback) {
-  bcrypt.compare(password, this.password, function(error, isMatch) {
-    if (error) {
-      console.log(error)
-      return callback(error)
-    } else {
-      callback(null, isMatch)
-      console.log(isMatch)
-    }
-  })
-}
+
+
+
 
 const User = mongoose.model('User', userSchema)
 
