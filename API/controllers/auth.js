@@ -11,14 +11,13 @@ const sendLogin = async (req, res) => {
         const test = await bcrypt.compare(req.body.password, user.password)
         if (test) {
             const token = jwt.sign({
-                _id: user._id,
                 email: user.email,
                 firstName: user.firstName
             }, process.env.JWT_SECRET, { expiresIn: 300 })
             return res.json({ access_token: token })
 
         } else {
-            return res.status(401).json({ message: `mauvais PWD` })
+            return res.status(401).json({ message: `wrong password` })
         }
     } catch (err) {
         res.status(500).json({ message: `login process error`, error: err })

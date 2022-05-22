@@ -11,8 +11,6 @@ const getAllUsers = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
-
-
 const getUser = async (req, res) => {
     let userId = parseInt(req.params.userID)
     // Vérification du param
@@ -22,7 +20,7 @@ const getUser = async (req, res) => {
     try {
         let user = await User.findOne({ _id: req.params.userID })
         if (user === null) {
-            return res.status(404).json({ message: `User does not exist ` })
+            return res.status(404).json({ message: `User does not exist` })
         }
 
         return res.json({ data: user })
@@ -41,7 +39,7 @@ const createUser = async (req, res) => {
         }
         let user = await User.findOne({ _id: _id })
         if (user !== null) {
-            return res.status(400).json({ message: `The user :${_id} does not exist` })
+            return res.status(400).json({ message: `The user :${_id} does exist` })
         }
         user = await User.create(req.body)
         return res.json({ message: `User created`, data: user })
