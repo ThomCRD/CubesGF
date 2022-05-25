@@ -1,36 +1,4 @@
 const Comment = require('../models/comment')
-<<<<<<< HEAD
-
-const getComments = ((req, res) => {
-  Comment.find({})
-      .then(result => res.status(200).json({ result }))
-      .catch(error => res.status(500).json({msg: error}))
-})
-
-const getComment = ((req, res) => {
-  Comment.findOne({ _id: req.params.commentID })
-  .then(result => res.status(200).json({ result }))
-  .catch(() => res.status(404).json({msg: 'Comment not found'}))
-})
-
-const createComment = ((req, res) => {
-  Comment.create(req.body)
-  .then(result => res.status(200).json({ result }))
-  .catch((error) => res.status(500).json({msg:  error }))
-})
-
-const updateComment = ((req, res) => {
-  Comment.findOneAndUpdate({ _id: req.params.commentID }, req.body, { new: true, runValidators: true })
-  .then(result => res.status(200).json({ result }))
-  .catch((error) => res.status(404).json({msg: 'Comment not found' }))
-})
-
-const deleteComment = ((req, res) => {
-  Comment.findOneAndDelete({ _id: req.params.commentID })
-  .then(result => res.status(200).json({ result }))
-  .catch((error) => res.status(404).json({msg: 'Comment not found' }))
-})
-=======
 const {cancelAwaitAfter}  = require('../../Config/promise')
 
 
@@ -115,7 +83,6 @@ const deleteComment = async (req, res) => {
      return res.status(500).json({ message: `Comment not found`, error: err })
  }
 }
->>>>>>> 3-api-connection-for-User-collection
 
 module.exports = {
   getComments,
