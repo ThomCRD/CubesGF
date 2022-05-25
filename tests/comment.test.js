@@ -56,7 +56,6 @@ let dataCommentDEL = new Comment(
 
 
 describe("Test controler Comment", () => {
-
   it("create comment ", async () => {
 
     let mockReqTrue = nodeMockHttp.createRequest({

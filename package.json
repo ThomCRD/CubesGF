@@ -7,7 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand ./tests",
+    "test": "jest --runInBand --detectOpenHandles ./tests", 
     "start": "node server.js",
     "dev": "nodemon server.js"
   },

@@ -1,12 +1,14 @@
 const Comment = require('../models/comment')
+const {cancelAwaitAfter}  = require('../../Config/promise')
+
 
 
 
 const getComments =  async (req, res) => {
   Comment.find()  
     try {
-       let comment = await Comment.find()
-        return res.json({ data: comment })
+       let comment = await Promise.race([Comment.find(), cancelAwaitAfter(3000)])
+       return res.json({ data: comment })
     }catch (err){
         return res.status(500).json({ message: `Database error`, error: err })
     }
@@ -19,11 +21,10 @@ const getComment = async (req, res) => {
       return res.status(400).json({ message: `Parameter missing` })
   }
   try{
-      let comment = await Comment.findOne( { _id: commentId })
+      let comment = await Promise.race([Comment.findOne( { _id: commentId }), cancelAwaitAfter(3000)])
       if (comment === null) {
           return res.status(404).json({ message: `the comment does not exist ` })
       }
-
       return res.json({ data: comment })
   }catch (err){
       return res.status(500).json({ message: `Erreur database`, error: err })
@@ -38,11 +39,11 @@ const createComment = async (req, res) => {
     if ( !_id || !_iduser || !_idRestaurant || !ContenuTexte || !Note) {
         return res.status(400).json({ message: `Data Missing` })
     }
-    let comment = await Comment.findOne({ _id: _id })
+    let comment = await Promise.race([Comment.findOne({ _id: _id }), cancelAwaitAfter(3000)])
     if (comment !== null) {
         return res.status(400).json({ message: `Comment :${_id} existed` })
     }
-    comment = await Comment.create(req.body)
+    comment = await Promise.race([Comment.create(req.body), cancelAwaitAfter(3000)])
     return res.json({ message: `Comment created`, data: comment })
 }catch (err){
     return res.status(500).json({ message: `Database error`, error: err })
@@ -56,7 +57,7 @@ const updateComment = async (req, res) => {
       return res.status(400).json({ message: `Parameter missing` })
   }
   try {
-    let comment = await Comment.findOneAndUpdate({ _id: req.params.commentID }, req.body, { new: true, runValidators: true })
+    let comment = await Promise.race([Comment.findOneAndUpdate({ _id: req.params.commentID }, req.body, { new: true, runValidators: true }), cancelAwaitAfter(3000)])
     if (comment === null) {
       return res.status(404).json({ message: `the comment does not exist ` })
   }
@@ -73,7 +74,7 @@ const deleteComment = async (req, res) => {
       return res.status(400).json({ message: `Parameter missing` })
   }
   try {
-    let comment = await Comment.findOneAndDelete({ _id: req.params.commentID })
+    let comment = await Promise.race([Comment.findOneAndDelete({ _id: req.params.commentID }), cancelAwaitAfter(3000)])
     if (comment === null) {
       return res.status(404).json({ message: `the comment does not exist ` })
   }

@@ -6,6 +6,7 @@ const getAllUsers = async (req, res) => {
     User.find()
     try {
         let user = await User.find()
+        
         return res.json({ data: user })
     } catch (err) {
         return res.status(500).json({ message: `Database error`, error: err })
