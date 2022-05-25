@@ -1,4 +1,5 @@
 const Comment = require('../models/comment')
+<<<<<<< HEAD
 
 const getComments = ((req, res) => {
   Comment.find({})
@@ -29,6 +30,92 @@ const deleteComment = ((req, res) => {
   .then(result => res.status(200).json({ result }))
   .catch((error) => res.status(404).json({msg: 'Comment not found' }))
 })
+=======
+const {cancelAwaitAfter}  = require('../../Config/promise')
+
+
+
+
+const getComments =  async (req, res) => {
+  Comment.find()  
+    try {
+       let comment = await Promise.race([Comment.find(), cancelAwaitAfter(3000)])
+       return res.json({ data: comment })
+    }catch (err){
+        return res.status(500).json({ message: `Database error`, error: err })
+    }
+}
+
+const getComment = async (req, res) => {
+  let commentId = parseInt(req.params.commentID)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try{
+      let comment = await Promise.race([Comment.findOne( { _id: commentId }), cancelAwaitAfter(3000)])
+      if (comment === null) {
+          return res.status(404).json({ message: `the comment does not exist ` })
+      }
+      return res.json({ data: comment })
+  }catch (err){
+      return res.status(500).json({ message: `Erreur database`, error: err })
+  }
+}
+
+const createComment = async (req, res) => {
+  try {
+    const { _id, _iduser, _idRestaurant,ContenuTexte,Note } = req.body
+
+    // Validation des données reçues
+    if ( !_id || !_iduser || !_idRestaurant || !ContenuTexte || !Note) {
+        return res.status(400).json({ message: `Data Missing` })
+    }
+    let comment = await Promise.race([Comment.findOne({ _id: _id }), cancelAwaitAfter(3000)])
+    if (comment !== null) {
+        return res.status(400).json({ message: `Comment :${_id} existed` })
+    }
+    comment = await Promise.race([Comment.create(req.body), cancelAwaitAfter(3000)])
+    return res.json({ message: `Comment created`, data: comment })
+}catch (err){
+    return res.status(500).json({ message: `Database error`, error: err })
+}
+}
+
+const updateComment = async (req, res) => {
+  let commentId = parseInt(req.params.commentID)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try {
+    let comment = await Promise.race([Comment.findOneAndUpdate({ _id: req.params.commentID }, req.body, { new: true, runValidators: true }), cancelAwaitAfter(3000)])
+    if (comment === null) {
+      return res.status(404).json({ message: `the comment does not exist ` })
+  }
+    return res.json({ data: comment })
+ }catch (err){
+     return res.status(500).json({ message: `Comment not found`, error: err })
+ }
+}
+
+const deleteComment = async (req, res) => {
+  let commentId = parseInt(req.params.commentID)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try {
+    let comment = await Promise.race([Comment.findOneAndDelete({ _id: req.params.commentID }), cancelAwaitAfter(3000)])
+    if (comment === null) {
+      return res.status(404).json({ message: `the comment does not exist ` })
+  }
+    return res.json({ data: comment ,message:"Comment removed"})
+ }catch (err){
+     return res.status(500).json({ message: `Comment not found`, error: err })
+ }
+}
+>>>>>>> 3-api-connection-for-User-collection
 
 module.exports = {
   getComments,
