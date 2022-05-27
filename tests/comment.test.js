@@ -237,7 +237,6 @@ describe("Test controler Comment", () => {
     let mockRes = nodeMockHttp.createResponse()
     await controlerComment.createComment(mockReq, mockRes)
 
-
     let mockReqPUT = nodeMockHttp.createRequest({
       method: 'PUT',
       url: 'api/comment/',

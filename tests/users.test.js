@@ -42,13 +42,8 @@ beforeAll(async () => {
       expect(resultTrue.data.lastName).toEqual("Hamel")
       expect(resultTrue.data.email).toEqual("oscar.hamel@gmail.com")
       expect(resultTrue.data.phone).toEqual("0606060606")
-
-      //----------------------------------------------//
-     //   TODO TODO TODO TEST PASSWORD TODO TODO ----//
-    //----------------------------------------------//
-    //   const test = await bcrypt.compare(resultTrue.data.password, "caramel")
-    //   console.log(bcrypt.compare(resultTrue.data.password,"azerty"))
-    //   expect(test)).toEqual(true)
+      const test = await bcrypt.compare("caramel",resultTrue.data.password )
+      expect(test).toEqual(true)
 
   
       let mockReqFalseEmail = nodeMockHttp.createRequest({
@@ -152,7 +147,7 @@ beforeAll(async () => {
         expect(resultGET.data[0]._id).toEqual("1")
         expect(resultGET.data[1]._id).toEqual("2")
       });
-      it("Get one User", async () => {
+    it("Get one User", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
             method: 'POST',
             url: 'api/register',
@@ -223,7 +218,7 @@ beforeAll(async () => {
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('User does not exist')
       });
-      it("Put update User", async () => {
+    it("Put update User", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
             method: 'POST',
             url: 'api/register',
@@ -279,7 +274,7 @@ beforeAll(async () => {
         expect(resultPUTFalse.message).toEqual('User does not exist ')
         
       });
-      it("Put delete comment", async () => {
+    it("Put delete comment", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
             method: 'POST',
             url: 'api/register',
