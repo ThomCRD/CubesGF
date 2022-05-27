@@ -8,12 +8,11 @@ const getComments =  async (req, res) => {
   Comment.find()  
     try {
        let comment = await Comment.find()
-       return res.json({ data: comment })
+      return res.json({ data: comment })
     }catch (err){
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
-
 const getComment = async (req, res) => {
   let commentId = parseInt(req.params.commentID)
   // Vérification du param
@@ -30,7 +29,6 @@ const getComment = async (req, res) => {
       return res.status(500).json({ message: `Erreur database`, error: err })
   }
 }
-
 const createComment = async (req, res) => {
   try {
     const { _id, _iduser, _idRestaurant,ContenuTexte,Note } = req.body
@@ -49,7 +47,6 @@ const createComment = async (req, res) => {
     return res.status(500).json({ message: `Database error`, error: err })
 }
 }
-
 const updateComment = async (req, res) => {
   let commentId = parseInt(req.params.commentID)
   // Vérification du param
@@ -66,7 +63,6 @@ const updateComment = async (req, res) => {
      return res.status(500).json({ message: `Comment not found`, error: err })
  }
 }
-
 const deleteComment = async (req, res) => {
   let commentId = parseInt(req.params.commentID)
   // Vérification du param
@@ -83,7 +79,6 @@ const deleteComment = async (req, res) => {
      return res.status(500).json({ message: `Comment not found`, error: err })
  }
 }
-
 module.exports = {
   getComments,
   getComment,
