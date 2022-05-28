@@ -2,13 +2,7 @@ const express = require('express')
 const router = express.Router()
 const commentCtrl = require('../controllers/comment')
 const checkTokenMiddleware = require('../jsonwebtoken/check')
-// const  { 
-//     getComments,
-//     getComment,
-//     createComment,
-//     updateComment,
-//     deleteComment 
-// } = require('../controllers/comment')
+
 
 router.get('/comments', commentCtrl.getComments)
 
