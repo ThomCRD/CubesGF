@@ -59,7 +59,7 @@ describe("Test controler Comment", () => {
   it("create comment ", async () => {
 
     let mockReqTrue = nodeMockHttp.createRequest({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/comment',
       body: {
         _id: "2333",
@@ -78,7 +78,7 @@ describe("Test controler Comment", () => {
     expect(resultTrue.data).toEqual(dataCommentTrueCreate._doc)
 
     let mockReqFalse = nodeMockHttp.createRequest({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/comment',
       body: {
         _id: "2333",
@@ -98,7 +98,7 @@ describe("Test controler Comment", () => {
   });
   it("Get all comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/comment',
       body: 
       {
@@ -115,7 +115,7 @@ describe("Test controler Comment", () => {
     await controlerComment.createComment(mockReq, mockRes)
 
     let mockReq2 = nodeMockHttp.createRequest({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/comment',
       body: 
       {
@@ -134,7 +134,7 @@ describe("Test controler Comment", () => {
 
     let mockReqGET = nodeMockHttp.createRequest(({
       method: 'GET',
-      url: 'api/comment'}))
+      url: 'api/comments'}))
     let mockResGET = nodeMockHttp.createResponse()
     await controlerComment.getComments(mockReqGET, mockResGET)
     let resultGET = JSON.parse(mockResGET._getData())
@@ -146,7 +146,7 @@ describe("Test controler Comment", () => {
   });
   it("Get one comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/comment',
       body: 
       {
@@ -163,7 +163,7 @@ describe("Test controler Comment", () => {
     await controlerComment.createComment(mockReq, mockRes)
 
     let mockReq2 = nodeMockHttp.createRequest({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/comment',
       body: 
       {
@@ -221,7 +221,7 @@ describe("Test controler Comment", () => {
   });
   it("Put update comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/comment',
       body: 
       {
@@ -238,7 +238,7 @@ describe("Test controler Comment", () => {
     await controlerComment.createComment(mockReq, mockRes)
 
     let mockReqPUT = nodeMockHttp.createRequest({
-      method: 'PUT',
+      method: 'PATCH',
       url: 'api/comment/',
       params:{commentID:'4'},
       body:{ContenuTexte: 'Modify'}
@@ -252,7 +252,7 @@ describe("Test controler Comment", () => {
     expect(statusCommentPUT).toEqual(200)
 
     let mockReqPUTMissing = nodeMockHttp.createRequest({
-      method: 'PUT',
+      method: 'PATCH',
       url: 'api/comment/',
       body:{ContenuTexte: 'Modify'}
     })
@@ -264,7 +264,7 @@ describe("Test controler Comment", () => {
     expect(resultPUTMissing.message).toEqual('Parameter missing')
 
     let mockReqPUTFalse = nodeMockHttp.createRequest({
-      method: 'PUT',
+      method: 'PATCH',
       url: 'api/comment/',
       params:{commentID:'3'},
       body:{ContenuTexte: 'Modify'}
@@ -279,7 +279,7 @@ describe("Test controler Comment", () => {
   });
   it("Put delete comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
-      method: 'POST',
+      method: 'PUT',
       url: 'api/comment',
       body: 
       {

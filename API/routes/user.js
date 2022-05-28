@@ -1,4 +1,5 @@
 const express = require('express')
+const checkTokenMiddleware = require('../jsonwebtoken/check')
 const router = express.Router()
 
 const  { getAllUsers, getUser,createUser,updateUser,deleteUser} = require('../controllers/user')
@@ -7,10 +8,10 @@ router.get('/users', getAllUsers)
 
 router.get('/user/:userID', getUser)
 
-router.post('/register', createUser) 
+router.put('/register', createUser) 
 
-router.put('/user/:userID', updateUser) 
+router.patch('/user/:userID',checkTokenMiddleware , updateUser) 
 
-router.delete('/user/:userID', deleteUser )
+router.delete('/user/:userID',checkTokenMiddleware , deleteUser )
 
 module.exports = router

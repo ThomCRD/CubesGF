@@ -20,7 +20,7 @@ beforeAll(async () => {
     it("create user ", async () => {
   
       let mockReqTrue = nodeMockHttp.createRequest({
-        method: 'POST',
+        method: 'PUT',
         url: 'api/register',
         body: {
           _id: "2333",
@@ -47,7 +47,7 @@ beforeAll(async () => {
 
   
       let mockReqFalseEmail = nodeMockHttp.createRequest({
-        method: 'POST',
+        method: 'PUT',
         url: 'api/register',
         body: {
           _id: "23",
@@ -67,7 +67,7 @@ beforeAll(async () => {
       expect(resultFalseEmail.error.errors.email.message).toBe("invalid email")
 
       let mockReqTrueUserAlreadyExists = nodeMockHttp.createRequest({
-        method: 'POST',
+        method: 'PUT',
         url: 'api/register',
         body: {
           _id: "2333",
@@ -86,7 +86,7 @@ beforeAll(async () => {
       expect(resultTrueUserAlreadyExists.message).toEqual("The user :2333 does exist")
 
       let mockReqTrueUserDataMissing = nodeMockHttp.createRequest({
-        method: 'POST',
+        method: 'PUT',
         url: 'api/register',
         body: {
           _id: "123",
@@ -106,7 +106,7 @@ beforeAll(async () => {
     });
     it("Get all Users", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
-            method: 'POST',
+            method: 'PUT',
             url: 'api/register',
             body: {
               _id: "1",
@@ -121,7 +121,7 @@ beforeAll(async () => {
           await controlerUser.createUser(mockReqTrue, mockResTrue)
     
           let mockReqTrue2 = nodeMockHttp.createRequest({
-            method: 'POST',
+            method: 'PUT',
             url: 'api/register',
             body: {
               _id: "2",
@@ -149,7 +149,7 @@ beforeAll(async () => {
       });
     it("Get one User", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
-            method: 'POST',
+            method: 'PUT',
             url: 'api/register',
             body: {
               _id: "11",
@@ -164,7 +164,7 @@ beforeAll(async () => {
           await controlerUser.createUser(mockReqTrue, mockResTrue)
     
           let mockReqTrue2 = nodeMockHttp.createRequest({
-            method: 'POST',
+            method: 'PUT',
             url: 'api/register',
             body: {
               _id: "22",
@@ -218,9 +218,9 @@ beforeAll(async () => {
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('User does not exist')
       });
-    it("Put update User", async () => {
+    it("PATCH update User", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
-            method: 'POST',
+            method: 'PUT',
             url: 'api/register',
             body: {
               _id: "111",
@@ -235,7 +235,7 @@ beforeAll(async () => {
           await controlerUser.createUser(mockReqTrue, mockResTrue)
     
         let mockReqPUT = nodeMockHttp.createRequest({
-          method: 'PUT',
+          method: 'PATCH',
           url: 'api/user/',
           params:{userID:'111'},
           body:{lastName: 'Gole'}
@@ -249,7 +249,7 @@ beforeAll(async () => {
         expect(statusCommentPUT).toEqual(200)
     
         let mockReqPUTMissing = nodeMockHttp.createRequest({
-          method: 'PUT',
+          method: 'PATCH',
           url: 'api/user/',
           body:{lastName: 'Gaule'}
         })
@@ -261,7 +261,7 @@ beforeAll(async () => {
         expect(resultPUTMissing.message).toEqual('Parameter missing')
     
         let mockReqPUTFalse = nodeMockHttp.createRequest({
-          method: 'PUT',
+          method: 'PATCH',
           url: 'api/user/',
           params:{userID:'3'},
           body:{lastName: 'Gaule'}
@@ -274,9 +274,9 @@ beforeAll(async () => {
         expect(resultPUTFalse.message).toEqual('User does not exist ')
         
       });
-    it("Put delete comment", async () => {
+    it("PATCH delete comment", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
-            method: 'POST',
+            method: 'PUT',
             url: 'api/register',
             body: {
               _id: "666",
