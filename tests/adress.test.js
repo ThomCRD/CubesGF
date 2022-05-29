@@ -1,5 +1,5 @@
 const express = require('express');
-const Comment = require("../API/models/adress");
+const Adress = require("../API/models/adress");
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerAdress = require('../API/controllers/adress');
@@ -15,7 +15,7 @@ afterAll(async () => {
   await db.dropDatabase();
 });
 
-let dataAdressTrueCreate = new Comment({
+let dataAdressTrueCreate = new Adress({
     _id:"42",
     country :"France",
     city:"Toulouse",
@@ -23,7 +23,7 @@ let dataAdressTrueCreate = new Comment({
     postal_code:"31000",
     __v: 0
 });
-let dataAdressTrueGet = new Comment(
+let dataAdressTrueGet = new Adress(
     {
         _id:"43",
         country :"France",
@@ -33,7 +33,7 @@ let dataAdressTrueGet = new Comment(
         __v: 0
     }
 );
-let dataAdressTrueGet2 = new Comment(
+let dataAdressTrueGet2 = new Adress(
   {
     _id:"44",
     country :"France",
@@ -43,7 +43,7 @@ let dataAdressTrueGet2 = new Comment(
     __v: 0
   }
 );
-let dataAdressDEL = new Comment(
+let dataAdressDEL = new Adress(
   {
     _id:"45",
     country :"France",

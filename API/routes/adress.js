@@ -7,7 +7,7 @@ router.get('/adresses', adressCtrl.getadresses)
 
 router.get('/adress/:adressID', adressCtrl.getAdress)
 
-router.put('/adress' ,checkTokenMiddleware ,adressCtrl.createAdress) 
+router.put('/adress'  ,adressCtrl.createAdress) 
 
 router.patch('/adress/:adressID',checkTokenMiddleware , adressCtrl.updateAdress) 
 
