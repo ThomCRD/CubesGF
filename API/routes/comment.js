@@ -6,12 +6,12 @@ const checkTokenMiddleware = require('../jsonwebtoken/check')
 
 router.get('/comments', commentCtrl.getComments)
 
-router.get('/comment/:commentID', commentCtrl.getComment)
+router.get('/comment/:id', commentCtrl.getComment)
 
 router.put('/comment' ,checkTokenMiddleware ,commentCtrl.createComment) 
 
-router.patch('/comment/:commentID',checkTokenMiddleware , commentCtrl.updateComment) 
+router.patch('/comment/:id',checkTokenMiddleware , commentCtrl.updateComment) 
 
-router.delete('/comment/:commentID',checkTokenMiddleware , commentCtrl.deleteComment )
+router.delete('/comment/:id',checkTokenMiddleware , commentCtrl.deleteComment )
 
 module.exports = router

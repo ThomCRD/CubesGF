@@ -13,13 +13,13 @@ const getAllUsers = async (req, res) => {
     }
 }
 const getUser = async (req, res) => {
-    let userId = parseInt(req.params.userID)
+    let userId = parseInt(req.params.id)
     // Vérification du param
     if (!userId) {
         return res.status(400).json({ message: `Parameter missing` })
     }
     try {
-        let user = await User.findOne({ _id: req.params.userID })
+        let user = await User.findOne({ _id: req.params.id })
         if (user === null) {
             return res.status(404).json({ message: `User does not exist` })
         }
@@ -32,15 +32,15 @@ const getUser = async (req, res) => {
 }
 const createUser = async (req, res) => {
     try {
-        const { _id, email, password, firstName, lastName, phone } = req.body
+        const { email, password, firstName, lastName, phone } = req.body
 
         // Validation des données reçues
-        if (!_id || !email || !password || !firstName || !lastName || !phone) {
+        if ( !email || !password || !firstName || !lastName || !phone) {
             return res.status(400).json({ message: `Data Missing` })
         }
-        let user = await User.findOne({ _id: _id })
+        let user = await User.findOne({ email: email })
         if (user !== null) {
-            return res.status(400).json({ message: `The user :${_id} does exist` })
+            return res.status(400).json({ message: `The user does exist` })
         }
         user = await User.create(req.body)
         return res.json({ message: `User created`, data: user })
@@ -50,13 +50,13 @@ const createUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    let userId = parseInt(req.params.userID)
+    let userId = parseInt(req.params.id)
     // Vérification du param
     if (!userId) {
         return res.status(400).json({ message: `Parameter missing` })
     }
     try {
-        let user = await User.findOneAndUpdate({ _id: req.params.userID }, req.body, { new: true, runValidators: true })
+        let user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true })
         if (user === null) {
             return res.status(404).json({ message: `User does not exist ` })
         }
@@ -67,13 +67,13 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    let userId = parseInt(req.params.userID)
+    let userId = parseInt(req.params.id)
     // Vérification du param
     if (!userId) {
         return res.status(400).json({ message: `Parameter missing` })
     }
     try {
-        let user = await User.findOneAndDelete({ _id: req.params.userID })
+        let user = await User.findOneAndDelete({ _id: req.params.id })
         if (user === null) {
             return res.status(404).json({ message: `User does not exist ` })
         }

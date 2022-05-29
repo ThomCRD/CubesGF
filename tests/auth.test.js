@@ -23,7 +23,6 @@ describe("Test controler Auth", () => {
           method: 'POST',
           url: 'api/register',
           body: {
-            _id: "2333",
             firstName: "Rene",
             lastName: "Kikoul",
             email: "rene.kikoul@gmail.com",

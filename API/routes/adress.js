@@ -5,12 +5,12 @@ const checkTokenMiddleware = require('../jsonwebtoken/check')
 
 router.get('/adresses', adressCtrl.getadresses)
 
-router.get('/adress/:adressID', adressCtrl.getAdress)
+router.get('/adress/:id', adressCtrl.getAdress)
 
-router.put('/adress'  ,adressCtrl.createAdress) 
+router.put('/adress',checkTokenMiddleware ,adressCtrl.createAdress) 
 
-router.patch('/adress/:adressID',checkTokenMiddleware , adressCtrl.updateAdress) 
+router.patch('/adress/:id' ,checkTokenMiddleware , adressCtrl.updateAdress) 
 
-router.delete('/adress/:adressID',checkTokenMiddleware , adressCtrl.deleteAdress )
+router.delete('/adress/:id',checkTokenMiddleware , adressCtrl.deleteAdress )
 
 module.exports = router

@@ -23,7 +23,7 @@ beforeAll(async () => {
         method: 'PUT',
         url: 'api/register',
         body: {
-          _id: "2333",
+          _id: "629352698dc707a4b435287c",
           firstName: "Oscar",
           lastName: "Hamel",
           email: "oscar.hamel@gmail.com",
@@ -37,7 +37,7 @@ beforeAll(async () => {
       let statusUserTrue = mockResTrue._getStatusCode()
       expect(statusUserTrue).toBe(200)
       expect(resultTrue.message).toBe("User created")
-      expect(resultTrue.data._id).toEqual("2333")
+      expect(resultTrue.data._id).toEqual("629352698dc707a4b435287c")
       expect(resultTrue.data.firstName).toEqual("Oscar")
       expect(resultTrue.data.lastName).toEqual("Hamel")
       expect(resultTrue.data.email).toEqual("oscar.hamel@gmail.com")
@@ -50,7 +50,7 @@ beforeAll(async () => {
         method: 'PUT',
         url: 'api/register',
         body: {
-          _id: "23",
+          _id: "629352698dc707a4b435287b",
           firstName: "Alain",
           lastName: "Térieur",
           email: "Alain.Térieur@gmail",
@@ -70,7 +70,6 @@ beforeAll(async () => {
         method: 'PUT',
         url: 'api/register',
         body: {
-          _id: "2333",
           firstName: "Oscar",
           lastName: "Hamel",
           email: "oscar.hamel@gmail.com",
@@ -83,13 +82,13 @@ beforeAll(async () => {
       let resultTrueUserAlreadyExists = JSON.parse(mockResTrueUserAlreadyExists._getData())
       let statusUserTrueUserAlreadyExist = mockResTrueUserAlreadyExists._getStatusCode()
       expect(statusUserTrueUserAlreadyExist).toBe(400)
-      expect(resultTrueUserAlreadyExists.message).toEqual("The user :2333 does exist")
+      expect(resultTrueUserAlreadyExists.message).toEqual("The user does exist")
 
       let mockReqTrueUserDataMissing = nodeMockHttp.createRequest({
         method: 'PUT',
         url: 'api/register',
         body: {
-          _id: "123",
+          _id: "629352698dc707a4b435287v",
           firstName: "Alex",
           lastName: "Térieur",
           email: "Alex.Térieur@gmail.com",
@@ -109,7 +108,7 @@ beforeAll(async () => {
             method: 'PUT',
             url: 'api/register',
             body: {
-              _id: "1",
+              _id: "629352698dc707a4b435287a",
               firstName: "Anna",
               lastName: "Tomie",
               email: "Anna.Tomie@gmail.com",
@@ -124,7 +123,7 @@ beforeAll(async () => {
             method: 'PUT',
             url: 'api/register',
             body: {
-              _id: "2",
+              _id: "629354777e225e716e6c18fb",
               firstName: "Camille ",
               lastName: "Zole",
               email: "Camille.Zole@gmail.com",
@@ -144,15 +143,15 @@ beforeAll(async () => {
         let statusCommentGET = mockResGET._getStatusCode()
         expect(statusCommentGET).toBe(200)
         expect(resultGET).toBeDefined()
-        expect(resultGET.data[0]._id).toEqual("1")
-        expect(resultGET.data[1]._id).toEqual("2")
+        expect(resultGET.data[0]._id).toEqual("629352698dc707a4b435287a")
+        expect(resultGET.data[1]._id).toEqual("629354777e225e716e6c18fb")
       });
     it("Get one User", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
             method: 'PUT',
             url: 'api/register',
             body: {
-              _id: "11",
+              _id: "629354777e225e716e6c18fb",
               firstName: "Edmond",
               lastName: "Prochain",
               email: "Edmond.Prochain@gmail.com",
@@ -167,7 +166,7 @@ beforeAll(async () => {
             method: 'PUT',
             url: 'api/register',
             body: {
-              _id: "22",
+              _id: "629354777e225e716e6c18fa",
               firstName: "Garcin",
               lastName: "Lazare",
               email: "Garcin.Lazare@gmail.com",
@@ -182,15 +181,15 @@ beforeAll(async () => {
         let mockReqGET = nodeMockHttp.createRequest({
           method: 'GET',
           url: 'api/user/',
-          params:{userID:'22'}
+          params:{id:'629354777e225e716e6c18fa'}
       
         })
         let mockResGET = nodeMockHttp.createResponse()
         await controlerUser.getUser(mockReqGET,mockResGET)
         let resultGET = JSON.parse(mockResGET._getData())
         let statusCommentGET = mockResGET._getStatusCode()
-        expect(resultGET.data._id).toEqual("22")
-        expect(resultGET.data._id).not.toEqual("11")
+        expect(resultGET.data._id).toEqual("629354777e225e716e6c18fa")
+        expect(resultGET.data._id).not.toEqual("629354777e225e716e6c18fb")
         expect(statusCommentGET).toEqual(200)
     
         let mockReqGETMissing = nodeMockHttp.createRequest({
@@ -208,7 +207,7 @@ beforeAll(async () => {
         let mockReqGETFalse = nodeMockHttp.createRequest({
           method: 'GET',
           url: 'api/user/',
-          params:{userID:'3'}
+          params:{id:'629354777e225e716e6c18fc'}
     
         })
         let mockResGETFalse = nodeMockHttp.createResponse()
@@ -218,12 +217,12 @@ beforeAll(async () => {
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('User does not exist')
       });
-    it("PATCH update User", async () => {
+    it("patch update User", async () => {
         let mockReqTrue = nodeMockHttp.createRequest({
             method: 'PUT',
             url: 'api/register',
             body: {
-              _id: "111",
+              _id:"629355dbd7c0adc46022486c",
               firstName: "Henri",
               lastName: "G",
               email: "Henri.Gole@gmail.com",
@@ -237,14 +236,14 @@ beforeAll(async () => {
         let mockReqPUT = nodeMockHttp.createRequest({
           method: 'PATCH',
           url: 'api/user/',
-          params:{userID:'111'},
+          params:{id:'629355dbd7c0adc46022486c'},
           body:{lastName: 'Gole'}
         })
         let mockResPUT = nodeMockHttp.createResponse()
         await controlerUser.updateUser(mockReqPUT,mockResPUT)
         let resultPUT = JSON.parse(mockResPUT._getData())
         let statusCommentPUT = mockResPUT._getStatusCode()
-        expect(resultPUT.data._id).toEqual("111")
+        expect(resultPUT.data._id).toEqual("629355dbd7c0adc46022486c")
         expect(resultPUT.data.lastName).toEqual("Gole")
         expect(statusCommentPUT).toEqual(200)
     
@@ -263,15 +262,15 @@ beforeAll(async () => {
         let mockReqPUTFalse = nodeMockHttp.createRequest({
           method: 'PATCH',
           url: 'api/user/',
-          params:{userID:'3'},
+          params:{id:'629355dbd7c0adc46022486v'},
           body:{lastName: 'Gaule'}
         })
         let mockResPUTFalse = nodeMockHttp.createResponse()
         await controlerUser.updateUser(mockReqPUTFalse,mockResPUTFalse)
         let resultPUTFalse = JSON.parse(mockResPUTFalse._getData())
         let statusCommentPUTFalse = mockResPUTFalse._getStatusCode()
-        expect(statusCommentPUTFalse).toEqual(404)
-        expect(resultPUTFalse.message).toEqual('User does not exist ')
+        expect(statusCommentPUTFalse).toEqual(500)
+        expect(resultPUTFalse.message).toEqual('User not found')
         
       });
     it("PATCH delete comment", async () => {
@@ -279,7 +278,7 @@ beforeAll(async () => {
             method: 'PUT',
             url: 'api/register',
             body: {
-              _id: "666",
+              _id: "62935854759703891777071a",
               firstName: "Jacques",
               lastName: "Ouzi",
               email: "Jacques.Ouzi@gmail.com",
@@ -289,11 +288,11 @@ beforeAll(async () => {
           })
           let mockResTrue = nodeMockHttp.createResponse()
           await controlerUser.createUser(mockReqTrue, mockResTrue)
-    
+
         let mockReqDELFalse = nodeMockHttp.createRequest({
           method: 'DEL',
           url: 'api/user/',
-          params:{userID:'66'},
+          params:{id:'629355dbd7c0adc46022486c'},
         })
         let mockResDELFalse = nodeMockHttp.createResponse()
         await controlerUser.deleteUser(mockReqDELFalse,mockResDELFalse)
@@ -316,7 +315,7 @@ beforeAll(async () => {
         let mockReqDEL = nodeMockHttp.createRequest({
           method: 'DELETE',
           url: 'api/comment/',
-          params:{userID:'666'},
+          params:{id:'62935854759703891777071a'},
     
         })
       
@@ -330,7 +329,7 @@ beforeAll(async () => {
         let mockReqGET = nodeMockHttp.createRequest({
           method: 'GET',
           url: 'api/user/',
-          params:{userID:'666'}
+          params:{id:'62935854759703891777071a'}
       
         })
         let mockResGET = nodeMockHttp.createResponse()

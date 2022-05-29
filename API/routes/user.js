@@ -6,12 +6,12 @@ const  { getAllUsers, getUser,createUser,updateUser,deleteUser} = require('../co
 
 router.get('/users', getAllUsers)
 
-router.get('/user/:userID', getUser)
+router.get('/user/:id', getUser)
 
 router.put('/register', createUser) 
 
-router.patch('/user/:userID',checkTokenMiddleware , updateUser) 
+router.patch('/user/:id',checkTokenMiddleware , updateUser) 
 
-router.delete('/user/:userID',checkTokenMiddleware , deleteUser )
+router.delete('/user/:id',checkTokenMiddleware , deleteUser )
 
 module.exports = router

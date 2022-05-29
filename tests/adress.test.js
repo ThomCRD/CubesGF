@@ -15,45 +15,6 @@ afterAll(async () => {
   await db.dropDatabase();
 });
 
-let dataAdressTrueCreate = new Adress({
-    _id:"42",
-    country :"France",
-    city:"Toulouse",
-    street :"4 rue des endroits",
-    postal_code:"31000",
-    __v: 0
-});
-let dataAdressTrueGet = new Adress(
-    {
-        _id:"43",
-        country :"France",
-        city:"Toulouse",
-        street :"4 rue des endroits",
-        postal_code:"31000",
-        __v: 0
-    }
-);
-let dataAdressTrueGet2 = new Adress(
-  {
-    _id:"44",
-    country :"France",
-    city:"Toulouse",
-    street :"4 rue des endroits",
-    postal_code:"31000",
-    __v: 0
-  }
-);
-let dataAdressDEL = new Adress(
-  {
-    _id:"45",
-    country :"France",
-    city:"Toulouse",
-    street :"4 rue des endroits",
-    postal_code:"31000",
-    __v: 0
-  }
-);
-
 
 describe("Test controler Adress", () => {
   it("create adress ", async () => {
@@ -62,7 +23,6 @@ describe("Test controler Adress", () => {
       method: 'PUT',
       url: 'api/adress',
       body: {
-        _id:"42",
         country :"France",
         city:"Toulouse",
         street :"4 rue des endroits",
@@ -75,7 +35,10 @@ describe("Test controler Adress", () => {
     let statusAdressTrue = mockResTrue._getStatusCode()
     expect(statusAdressTrue).toBe(200)
     expect(resultTrue.message).toBe("Adress created")
-    expect(resultTrue.data).toEqual(dataAdressTrueCreate._doc)
+    expect(resultTrue.data.country).toEqual("France")
+    expect(resultTrue.data.city).toEqual("Toulouse")
+    expect(resultTrue.data.street).toEqual("4 rue des endroits")
+    expect(resultTrue.data.postal_code).toEqual("31000")
 
     let mockReqFalse = nodeMockHttp.createRequest({
       method: 'PUT',
@@ -102,11 +65,11 @@ describe("Test controler Adress", () => {
       url: 'api/adress',
       body: 
       {
-        _id:"43",
+        _id:"62932c0a348cafeabcc314ec",
         country :"France",
-        city:"Toulouse",
-        street :"4 rue des endroits",
-        postal_code:"31000",
+        city:"Bordeaux",
+        street :"4 rue des filatier",
+        postal_code:"33000",
       }
       
     })
@@ -118,7 +81,7 @@ describe("Test controler Adress", () => {
       url: 'api/adress',
       body: 
       {
-        _id:"44",
+        _id:"62932c0a348cafeabcc314eb",
         country :"France",
         city:"Toulouse",
         street :"4 rue des endroits",
@@ -139,8 +102,8 @@ describe("Test controler Adress", () => {
     let statusAdressGET = mockResGET._getStatusCode()
     expect(statusAdressGET).toBe(200)
     expect(resultGET).toBeDefined()
-    expect(resultGET.data[0]).toEqual(dataAdressTrueGet._doc)
-    expect(resultGET.data[1]).toEqual(dataAdressTrueGet2._doc)
+    expect(resultGET.data[0]._id).toEqual("62932c0a348cafeabcc314ec")
+    expect(resultGET.data[1]._id).toEqual("62932c0a348cafeabcc314eb")
   });
   it("Get one comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
@@ -148,7 +111,7 @@ describe("Test controler Adress", () => {
       url: 'api/adress',
       body: 
       {
-        _id:"47",
+        _id:"629336128b03db82aa8c5992",
         country :"France",
         city:"Toulouse",
         street :"4 rue des endroits",
@@ -164,11 +127,11 @@ describe("Test controler Adress", () => {
       url: 'api/adress',
       body: 
       {
-        _id:"48",
+        _id:"629336128b03db82aa8c5991",
         country :"France",
-        city:"Toulouse",
+        city:"Lille",
         street :"4 rue des endroits",
-        postal_code:"31000",
+        postal_code:"59000",
       }
       
     })
@@ -179,15 +142,15 @@ describe("Test controler Adress", () => {
     let mockReqGET = nodeMockHttp.createRequest({
       method: 'GET',
       url: 'api/adress/',
-      params:{adressID:'47'}
+      params:{id:'629336128b03db82aa8c5991'}
   
     })
     let mockResGET = nodeMockHttp.createResponse()
     await controlerAdress.getAdress(mockReqGET,mockResGET)
     let resultGET = JSON.parse(mockResGET._getData())
     let statusAdressGET = mockResGET._getStatusCode()
-    expect(resultGET.data._id).toEqual("47")
-    expect(resultGET.data._id).not.toEqual("48")
+    expect(resultGET.data._id).toEqual("629336128b03db82aa8c5991")
+    expect(resultGET.data._id).not.toEqual("629336128b03db82aa8c5992")
     expect(statusAdressGET).toEqual(200)
 
     let mockReqGETMissing = nodeMockHttp.createRequest({
@@ -205,7 +168,7 @@ describe("Test controler Adress", () => {
     let mockReqGETFalse = nodeMockHttp.createRequest({
       method: 'GET',
       url: 'api/adress/',
-      params:{adressID:'68'}
+      params:{id:'629336128b03db82aa8c5993'}
 
     })
     let mockResGETFalse = nodeMockHttp.createResponse()
@@ -215,17 +178,17 @@ describe("Test controler Adress", () => {
     expect(statusAdressGETFalse).toEqual(404)
     expect(resultGETFalse.message).toEqual('the adress does not exist ')
   });
-  it("Put update comment", async () => {
+  it("patch update comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
       method: 'PUT',
       url: 'api/adress',
       body: 
       {
-        _id:"50",
+        _id:"629336ca3c46ac8ed920a8c6",
         country :"France",
-        city:"Toulouse",
+        city:"Lyon",
         street :"4 rue des endroits",
-        postal_code:"31000",
+        postal_code:"69000",
         __v: 0
       }
       
@@ -236,14 +199,15 @@ describe("Test controler Adress", () => {
     let mockReqPUT = nodeMockHttp.createRequest({
       method: 'PATCH',
       url: 'api/adress/',
-      params:{adressID:'50'},
+      params:{id:'629336ca3c46ac8ed920a8c6'},
       body:{city: 'Modify'}
     })
     let mockResPUT = nodeMockHttp.createResponse()
     await controlerAdress.updateAdress(mockReqPUT,mockResPUT)
     let resultPUT = JSON.parse(mockResPUT._getData())
     let statusAdressPUT = mockResPUT._getStatusCode()
-    expect(resultPUT.data._id).toEqual("50")
+    expect(resultPUT.data._id).toEqual("629336ca3c46ac8ed920a8c6")
+    expect(resultPUT.message).toEqual("the address is changed")
     expect(resultPUT.data.city).toEqual("Modify")
     expect(statusAdressPUT).toEqual(200)
 
@@ -262,15 +226,15 @@ describe("Test controler Adress", () => {
     let mockReqPUTFalse = nodeMockHttp.createRequest({
       method: 'PATCH',
       url: 'api/adress/',
-      params:{adressID:'3'},
+      params:{id:'629336ca3c46ac8ed920a8c64'},
       body:{city: 'Modify'}
     })
     let mockResPUTFalse = nodeMockHttp.createResponse()
     await controlerAdress.updateAdress(mockReqPUTFalse,mockResPUTFalse)
     let resultPUTFalse = JSON.parse(mockResPUTFalse._getData())
     let statusAdressPUTFalse = mockResPUTFalse._getStatusCode()
-    expect(statusAdressPUTFalse).toEqual(404)
-    expect(resultPUTFalse.message).toEqual('the adress does not exist ')
+    expect(statusAdressPUTFalse).toEqual(500)
+    expect(resultPUTFalse.message).toEqual('Adress not found')
  
   });
   it("Put delete comment", async () => {
@@ -279,7 +243,7 @@ describe("Test controler Adress", () => {
       url: 'api/adress',
       body: 
       {
-        _id:"45",
+        _id:"629339278358c4931003327e",
         country :"France",
         city:"Toulouse",
         street :"4 rue des endroits",
@@ -290,23 +254,23 @@ describe("Test controler Adress", () => {
     })
     let mockRes = nodeMockHttp.createResponse()
     await controlerAdress.createAdress(mockReq, mockRes)
-
+  
     let mockReqDELFalse = nodeMockHttp.createRequest({
       method: 'DEL',
       url: 'api/adress/',
-      params:{adressID:'4'},
+      params:{id:"629339278358c4931003327z"},
     })
     let mockResDELFalse = nodeMockHttp.createResponse()
     await controlerAdress.deleteAdress(mockReqDELFalse,mockResDELFalse)
     let resultDELFalse = JSON.parse(mockResDELFalse._getData())
     let statusAdressDELFalse = mockResDELFalse._getStatusCode()
-    expect(statusAdressDELFalse).toEqual(404)
-    expect(resultDELFalse.message).toEqual('the adress does not exist ')
+    expect(statusAdressDELFalse).toEqual(500)
+    expect(resultDELFalse.message).toEqual('Adress not found')
 
     let mockReqDEL = nodeMockHttp.createRequest({
       method: 'DELETE',
       url: 'api/adress/',
-      params:{adressID:'45'},
+      params:{id:'629339278358c4931003327e'},
 
     })
   
@@ -314,13 +278,16 @@ describe("Test controler Adress", () => {
     await controlerAdress.deleteAdress(mockReqDEL,mockResDEL)
     let resultDEL = JSON.parse(mockResDEL._getData())
     let statusAdressDEL = mockResDEL._getStatusCode()
-    expect(resultDEL.data).toEqual(dataAdressDEL._doc)
+    expect(resultDEL.data.country).toEqual("France")
+    expect(resultDEL.data.city).toEqual("Toulouse")
+    expect(resultDEL.data.street).toEqual("4 rue des endroits")
+    expect(resultDEL.data.postal_code).toEqual("31000")
     expect(resultDEL.message).toEqual('Adress removed')
     expect(statusAdressDEL).toEqual(200)
     let mockReqGET = nodeMockHttp.createRequest({
       method: 'GET',
       url: 'api/adress/',
-      params:{adressID:'3'}
+      params:{id:'629339278358c4931003327e'}
   
     })
     let mockResGET = nodeMockHttp.createResponse()

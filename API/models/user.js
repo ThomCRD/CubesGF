@@ -7,7 +7,6 @@ require('dotenv').config();
 
 // Create Schema Instance and add schema propertise
 const userSchema = new mongoose.Schema({
-    _id: { type: String, required: true,createIndexes: { unique: true }},
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: {
@@ -48,10 +47,6 @@ userSchema.pre("save", function (next) {
     return next()
   }
 })
-
-
-
-
 
 const User = mongoose.model('User', userSchema)
 
