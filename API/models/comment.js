@@ -1,6 +1,6 @@
 // Import mongoose
 const mongoose = require("mongoose");
-const User = require('../models/user')
+
 
 
 // Create Schema Instance and add schema propertise

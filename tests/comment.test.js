@@ -101,7 +101,6 @@ describe("Test controler Comment", () => {
     let statusCommentGET = mockResGET._getStatusCode()
     expect(statusCommentGET).toBe(200)
     expect(resultGET).toBeDefined()
-    console.log(resultGET.data[0]._id)
     expect(resultGET.data[0]._id).toEqual("6293445ba397f4d94b3ff23f")
     expect(resultGET.data[1]._id).toEqual("629344e6dbb7fc6ae5c7d0f1")
   });
