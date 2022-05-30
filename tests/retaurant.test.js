@@ -128,7 +128,6 @@ describe("Test controler Restaurant", () => {
         let statusCommentGET = mockResGET._getStatusCode()
         expect(statusCommentGET).toBe(200)
         expect(resultGET).toBeDefined()
-        console.log(resultGET.data[0]._id)
         expect(resultGET.data[0]._id).toEqual("629549a125c2c09c52c89cfd")
         expect(resultGET.data[1]._id).toEqual("629549a125c2c09c52c89cfc")
     });
