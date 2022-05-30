@@ -23,8 +23,8 @@ describe("Test controler Comment", () => {
       method: 'PUT',
       url: 'api/comment',
       body: {
-        _iduser: "300",
-        _idRestaurant: "700",
+        _iduser: "562b2649b2e70464f113c04d",
+        _idRestaurant: "562b2649b2e70464f113c04e",
         contenuTexte: "Test",
         note: "3",
       }
@@ -35,8 +35,8 @@ describe("Test controler Comment", () => {
     let statusCommentTrue = mockResTrue._getStatusCode()
     expect(statusCommentTrue).toBe(200)
     expect(resultTrue.message).toBe("Comment created")
-    expect(resultTrue.data._iduser).toEqual("300")
-    expect(resultTrue.data._idRestaurant).toEqual("700")
+    expect(resultTrue.data._iduser).toEqual("562b2649b2e70464f113c04d")
+    expect(resultTrue.data._idRestaurant).toEqual("562b2649b2e70464f113c04e")
     expect(resultTrue.data.contenuTexte).toEqual("Test")
     expect(resultTrue.data.note).toEqual("3")
 
@@ -65,8 +65,8 @@ describe("Test controler Comment", () => {
       body: 
       {
           _id:"6293445ba397f4d94b3ff23f",
-          _iduser: '213',
-          _idRestaurant: '2345',
+          _iduser: '562b2649b2e70464f113c04e',
+          _idRestaurant: '562b2649b2e70464f113c04d',
           contenuTexte: 'Test',
           note: '3',
           __v: 0
@@ -82,8 +82,8 @@ describe("Test controler Comment", () => {
       body: 
       {
         _id:"629344e6dbb7fc6ae5c7d0f1",
-          _iduser: '213',
-          _idRestaurant: '223',
+          _iduser: '562b2649b2e70464f113c04c',
+          _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
           contenuTexte: 'Test',
           note: '3',
           __v: 0
@@ -101,6 +101,7 @@ describe("Test controler Comment", () => {
     let statusCommentGET = mockResGET._getStatusCode()
     expect(statusCommentGET).toBe(200)
     expect(resultGET).toBeDefined()
+    console.log(resultGET.data[0]._id)
     expect(resultGET.data[0]._id).toEqual("6293445ba397f4d94b3ff23f")
     expect(resultGET.data[1]._id).toEqual("629344e6dbb7fc6ae5c7d0f1")
   });
@@ -111,8 +112,8 @@ describe("Test controler Comment", () => {
       body: 
       {
         _id:"629336128b03db82aa8c5995",
-        _iduser: '2',
-        _idRestaurant: '3',
+        _iduser: '562b2649b2e70464f113c04c',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
         contenuTexte: 'Test',
         note: '3',
         __v: 0
@@ -128,8 +129,8 @@ describe("Test controler Comment", () => {
       body: 
       {
         _id:"629336128b03db82aa8c5996",
-        _iduser: '5',
-        _idRestaurant: '6',
+        _iduser: '562b2649b2e70464f113c04b',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa1',
         contenuTexte: 'Test',
         note: '3',
         __v: 0
@@ -186,8 +187,8 @@ describe("Test controler Comment", () => {
       body: 
       {
         _id: '629336ca3c46ac8ed920a8c9',
-        _iduser: '5',
-        _idRestaurant: '6',
+        _iduser: '562b2649b2e70464f113c04c',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
         contenuTexte: 'Test',
         note: '3',
         __v: 0
@@ -244,8 +245,8 @@ describe("Test controler Comment", () => {
       body: 
       {
         _id: '62934b50ee4aa3bf1642a47a',
-        _iduser: '34',
-        _idRestaurant: '56',
+        _iduser: '562b2649b2e70464f113c04c',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
         contenuTexte: 'Test delete',
         note: '3',
         __v: 0
@@ -278,8 +279,8 @@ describe("Test controler Comment", () => {
     await controlerComment.deleteComment(mockReqDEL,mockResDEL)
     let resultDEL = JSON.parse(mockResDEL._getData())
     let statusCommentDEL = mockResDEL._getStatusCode()
-    expect(resultDEL.data._iduser).toEqual("34")
-    expect(resultDEL.data._idRestaurant).toEqual("56")
+    expect(resultDEL.data._iduser).toEqual("562b2649b2e70464f113c04c")
+    expect(resultDEL.data._idRestaurant).toEqual("53f1f09f2cdcc8f339e5efa2")
     expect(resultDEL.data.contenuTexte).toEqual("Test delete")
     expect(resultDEL.data.note).toEqual("3")
     expect(resultDEL.message).toEqual('Comment removed')

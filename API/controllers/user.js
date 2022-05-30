@@ -3,7 +3,6 @@ const User = require('../models/user')
 
 
 const getAllUsers = async (req, res) => {
-    User.find()
     try {
         let user = await User.find()
         
@@ -48,7 +47,6 @@ const createUser = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
-
 const updateUser = async (req, res) => {
     let userId = parseInt(req.params.id)
     // Vérification du param
@@ -65,7 +63,6 @@ const updateUser = async (req, res) => {
         return res.status(500).json({ message: `User not found`, error: err })
     }
 }
-
 const deleteUser = async (req, res) => {
     let userId = parseInt(req.params.id)
     // Vérification du param
@@ -83,4 +80,4 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = { getAllUsers, getUser, createUser, updateUser, deleteUser,createUser }
+module.exports = { getAllUsers, getUser, createUser, updateUser, deleteUser }

@@ -1,11 +1,12 @@
 // Import mongoose
 const mongoose = require("mongoose");
+const User = require('../models/user')
 
 
 // Create Schema Instance and add schema propertise
 const commentSchema = new mongoose.Schema({
-    _iduser :{ type: String, required: true},
-    _idRestaurant:{ type: String, required: true},
+    _iduser :{type: mongoose.Schema.Types.ObjectId},
+    _idRestaurant:{type: mongoose.Schema.Types.ObjectId},
     contenuTexte :{ type: String, required: true},
     note:{ type: String, required: true},
 });

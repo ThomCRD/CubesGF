@@ -1,8 +1,9 @@
 const Comment = require('../models/comment')
+const { populate } = require('../models/user')
+const User = require('../models/user')
 
 
 const getComments =  async (req, res) => {
-  Comment.find()  
     try {
        let comment = await Comment.find()
       return res.json({ data: comment })
