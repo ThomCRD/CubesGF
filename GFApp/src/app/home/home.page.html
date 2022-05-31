@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="success">
     <img class="displayed"  height="50px" width="50px" src="../../assets/icon/goodfood-market--600.png" routerLink="/co">
-      <ion-icon size="large" slot="secondary" name="menu"></ion-icon>
+      <ion-icon size="large" slot="secondary" name="cart"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
       <img src="../../assets/icon/Like_Favourite_Love_Health_Heart_Favourites_Favorite-512.webp">Favorites
     </div>
     <div class="icon">
-      <img src="../../assets/icon/2933054.png">Burger
+      <img src="../../assets/icon/2933054.png">FastFood
     </div>
     <div class="icon">
       <img src="../../assets/icon/3831114.png">Salad
@@ -33,7 +33,7 @@
   <p>What people like the most</p>
   <div class="scroll-box" style="padding-bottom: 5%;">
     <div class="food">
-      <img src="../../assets/icon/téléchargement.jpeg">
+      <img (click)="openMenu()" src="../../assets/icon/téléchargement.jpeg">
     </div>
     <div class="food">
       <img src="../../assets/icon/i81670-recette-burger-vegetarien-au-steak-de-carottes.jpg">
@@ -75,7 +75,7 @@
 
   <p class="box-title"></p>
   <p style="font-weight:bold; font-size: 25px;">Fresh Selection</p>
-  <p>Making you cool</p>
+  <p>Making you cooler</p>
   <div class="scroll-box" style="padding-bottom: 5%;">
     <div class="food">
       <img src="../../assets/icon/bol-salade-plastique-charniere.webp">
@@ -101,18 +101,18 @@
 
 <ion-tab-bar color="light" slot="bottom">
   <ion-tab-button tab="tab1">
-    <ion-icon name="home">Home</ion-icon>
+    <ion-icon name="home" routerLink="/home">Home</ion-icon>
   </ion-tab-button>
 
   <ion-tab-button tab="tab2">
-    <ion-icon name="search">Search</ion-icon>
+    <ion-icon name="search" routerLink="/search">Search</ion-icon>
   </ion-tab-button>
 
   <ion-tab-button tab="tab3">
-    <ion-icon name="fast-food-outline">Orders</ion-icon>
+    <ion-icon name="fast-food-outline" routerLink="/food">Orders</ion-icon>
   </ion-tab-button>
 
   <ion-tab-button tab="tab4">
-    <ion-icon name="person-circle-outline">Account</ion-icon>
+    <ion-icon name="person-circle-outline" routerLink="/user">Account</ion-icon>
   </ion-tab-button>
 </ion-tab-bar>
