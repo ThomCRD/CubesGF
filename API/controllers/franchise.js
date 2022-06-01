@@ -34,10 +34,10 @@ const createFranchise = async (req, res) => {
         const { restaurant, headFranchise, subFranchise, siren, name,phone,email } = req.body
 
         // Validation des données reçues
-        if ( !restaurant || !headFranchise || !subFranchise || !siren || !name || !phone || !email) {
+        if ( !restaurant || !headFranchise || !subFranchise || !siren || !name || !phone ||!email) {
             return res.status(400).json({ message: `Data Missing` })
         }
-        let franchise = await Franchise.findOne({ siren: siren })
+        let franchise = await Franchise.findOne({ email: email })
         if (franchise !== null) {
             return res.status(400).json({ message: `The franchise does exist` })
         }
