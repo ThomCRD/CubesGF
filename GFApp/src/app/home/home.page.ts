@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { MenuPage } from '../menu/menu.page';
+import { FoodPage } from '../food/food.page';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +13,9 @@ export class HomePage {
     public modalController: ModalController
   ) {}
 
-  async openMenu() {
+  async openFood() {
     const modal = await this.modalController.create({
-      component: MenuPage
-
+      component: FoodPage
     });
     return await modal.present();
   }
