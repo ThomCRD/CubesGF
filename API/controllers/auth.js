@@ -34,24 +34,14 @@
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const passport = require("../middlewares/passport");
-const User = require("../models/User");
-const { SECRET } = require("../config");
+const passport = require("passport");
+const User = require("../models/user");
 
 /**
  * @DESC To register the user (ADMIN, SUPER_ADMIN, USER)
  */
 const userRegister = async (userDets, role, res) => {
   try {
-    // Validate the username
-    let usernameNotTaken = await validateUsername(userDets.username);
-    if (!usernameNotTaken) {
-      return res.status(400).json({
-        message: `Username is already taken.`,
-        success: false
-      });
-    }
-
     // validate the email
     let emailNotRegistered = await validateEmail(userDets.email);
     if (!emailNotRegistered) {
@@ -71,6 +61,7 @@ const userRegister = async (userDets, role, res) => {
     });
 
     await newUser.save();
+    console.log(newUser)
     return res.status(201).json({
       message: "Hurry! now you are successfully registred. Please nor login.",
       success: true
@@ -88,12 +79,12 @@ const userRegister = async (userDets, role, res) => {
  * @DESC To Login the user (ADMIN, SUPER_ADMIN, USER)
  */
 const userLogin = async (userCreds, role, res) => {
-  let { username, password } = userCreds;
+  let { email, password } = userCreds;
   // First Check if the username is in the database
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ email });
   if (!user) {
     return res.status(404).json({
-      message: "Username is not found. Invalid login credentials.",
+      message: "Email is not found. Invalid login credentials.",
       success: false
     });
   }
@@ -113,15 +104,13 @@ const userLogin = async (userCreds, role, res) => {
       {
         user_id: user._id,
         role: user.role,
-        username: user.username,
         email: user.email
       },
-      SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: "7 days" }
     );
 
     let result = {
-      username: user.username,
       role: user.role,
       email: user.email,
       token: `Bearer ${token}`,
@@ -141,10 +130,10 @@ const userLogin = async (userCreds, role, res) => {
   }
 };
 
-const validateUsername = async username => {
-  let user = await User.findOne({ username });
-  return user ? false : true;
-};
+// const validateUsername = async username => {
+//   let user = await User.findOne({ username });
+//   return user ? false : true;
+// };
 
 /**
  * @DESC Passport middleware
@@ -164,21 +153,23 @@ const validateEmail = async email => {
   return user ? false : true;
 };
 
-// const serializeUser = user => {
-//   return {
-//     username: user.username,
-//     email: user.email,
-//     name: user.name,
-//     _id: user._id,
-//     updatedAt: user.updatedAt,
-//     createdAt: user.createdAt
-//   };
-// };
+const serializeUser = user => {
+  return {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    address: user.address,
+    phone: user.phone,
+    _id: user._id,
+    updatedAt: user.updatedAt,
+    createdAt: user.createdAt
+  };
+};
 
 module.exports = {
   userAuth,
   checkRole,
   userLogin,
   userRegister,
-//   serializeUser
+  serializeUser
 };

@@ -5,11 +5,14 @@ const routesUser = require('./API/routes/user');
 const routesAuth = require('./API/routes/auth');
 const routesAdress = require('./API/routes/adress');
 
-require('./Config/db')
-
-
 const app = express();
 app.use(express.json()); // Parse Json
+
+require('./Config/db')
+const passport = require("passport");
+app.use(passport.initialize());
+require("./API/middlewares/passport")(passport);
+
 
 app.use('/api', routesComment)
 app.use('/api', routesUser)

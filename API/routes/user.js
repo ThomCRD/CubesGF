@@ -4,9 +4,11 @@ const router = express.Router()
 
 const  { getAllUsers, getUser,createUser,updateUser,deleteUser} = require('../controllers/user')
 
-router.get('/users', getAllUsers)
+const  { userAuth, checkRole } = require('../controllers/auth')
 
-router.get('/user/:id', getUser)
+router.get('/users', userAuth, checkRole(["user"]), getAllUsers)
+
+router.get('/user/:id', userAuth, checkRole(["user"]), getUser)
 
 router.put('/register', createUser) 
 

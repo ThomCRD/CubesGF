@@ -15,29 +15,29 @@ const userSchema = new mongoose.Schema({
       required: false 
     },
     email: {
-        type: String,
-        required: true,
-        validate: [isEmail, 'invalid email'],
-        createIndexes: { unique: true },
-      },
+      type: String,
+      required: true,
+      validate: [isEmail, 'invalid email'],
+      createIndexes: { unique: true },
+    },
     password: { 
       type: String, 
       required: true,
       max: 2048,
       min: 6,
-      },
-    address : { 
-      type: mongoose.SchemaTypes.ObjectId, 
-      required: false
     },
+    // address : { 
+    //   type: mongoose.SchemaTypes.ObjectId, 
+    //   required: false
+    // },
     phone: { 
       type: String, 
       required: false 
     },
     role : { 
       type : String,
-      default: 'customer',
-      enum: ["customer", "supplier", "admin"]
+      default: "user",
+      enum: ["user", "supplier", "admin"]
     }
 });
 
@@ -64,6 +64,5 @@ const userSchema = new mongoose.Schema({
 //   }
 // })
 
-const User = mongoose.model('User', userSchema)
 
-module.exports = User
+module.exports = mongoose.model('User', userSchema)
