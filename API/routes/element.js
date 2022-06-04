@@ -8,7 +8,7 @@ router.get('/comments', elementCtrl.getElements)
 
 router.get('/element/:id', elementCtrl.getElement)
 
-router.put('/element' ,checkTokenMiddleware ,elementCtrl.createElement) 
+router.put('/element'  ,elementCtrl.createElement) 
 
 router.patch('/element/:id',checkTokenMiddleware , elementCtrl.updateElement) 
 
