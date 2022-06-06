@@ -8,11 +8,10 @@ const routesRestaurant = require('./API/routes/restaurant');
 const routesElement = require('./API/routes/element');
 const routesImage = require('./API/routes/image');
 const routesOrder = require('./API/routes/order');
+const routesPromotion = require('./API/routes/promotion');
 const bodyParser = require("body-parser");
 
-
-
-
+// connextion a la base de données
 require('./Config/db')
 
 
@@ -27,6 +26,7 @@ app.use('/api', routesRestaurant)
 app.use('/api', routesElement)
 app.use('/api', routesImage)
 app.use('/api', routesOrder)
+app.use('/api', routesPromotion)
 
 
 app.listen( process.env.PORT, () => {
