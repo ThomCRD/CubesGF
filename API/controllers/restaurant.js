@@ -16,7 +16,7 @@ const getRestaurant = async (req, res) => {
         return res.status(400).json({ message: `Parameter missing` })
     }
     try {
-        let restaurant = await Restaurant.findOne({ _id: req.params.id })
+        let restaurant = await Restaurant.findOne({ _id: req.params.id }).populate('comment')
         if (restaurant === null) {
             return res.status(404).json({ message: `the restaurant does not exist ` })
         }

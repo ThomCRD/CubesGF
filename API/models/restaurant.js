@@ -10,7 +10,7 @@ const restaurantSchema = new mongoose.Schema({
     adress: { type: mongoose.Schema.Types.ObjectId },
     photo: { type: mongoose.Schema.Types.ObjectId },
     menu: [{ type: mongoose.Schema.Types.ObjectId }],
-    comment: [{ type: mongoose.Schema.Types.ObjectId }],
+    comment: [{ type: mongoose.Schema.Types.ObjectId,ref: 'Comment' }],
 });
 const Restaurant = mongoose.model('Restaurant', restaurantSchema)
 
