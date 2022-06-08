@@ -160,6 +160,7 @@ const serializeUser = user => {
     email: user.email,
     address: user.address,
     phone: user.phone,
+    role: user.role,
     _id: user._id,
     updatedAt: user.updatedAt,
     createdAt: user.createdAt

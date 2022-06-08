@@ -6,7 +6,8 @@ const {
   userAuth, 
   checkRole,
   userLogin, 
-  userRegister
+  userRegister,
+  serializeUser
 }  = require('../controllers/auth')
 
 
