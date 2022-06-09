@@ -25,6 +25,54 @@ const getComment = async (req, res) => {
       return res.status(500).json({ message: `Erreur database`, error: err })
   }
 }
+const getCommentFindMine = async (req, res) => {
+  let commentId = parseInt(req.params.id)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try{
+      let comment = await Comment.find( { _iduser: req.params.id })
+      if (comment === null) {
+          return res.status(404).json({ message: `the comment does not exist ` })
+      }
+      return res.json({ data: comment })
+  }catch (err){
+      return res.status(500).json({ message: `Erreur database`, error: err })
+  }
+}
+const getCommentFindByUser = async (req, res) => {
+  let commentId = parseInt(req.params.id)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try{
+      let comment = await Comment.find( { _iduser: req.params.id }).populate('_idRestaurant')
+      if (comment === null) {
+          return res.status(404).json({ message: `the comment does not exist ` })
+      }
+      return res.json({ data: comment })
+  }catch (err){
+      return res.status(500).json({ message: `Erreur database`, error: err })
+  }
+}
+const getCommentFindByRestaurant = async (req, res) => {
+  let commentId = parseInt(req.params.id)
+  // Vérification du param
+  if (!commentId) {
+      return res.status(400).json({ message: `Parameter missing` })
+  }
+  try{
+      let comment = await Comment.find( { _idRestaurant: req.params.id }).populate('_iduser')
+      if (comment === null) {
+          return res.status(404).json({ message: `the comment does not exist ` })
+      }
+      return res.json({ data: comment })
+  }catch (err){
+      return res.status(500).json({ message: `Erreur database`, error: err })
+  }
+}
 const createComment = async (req, res) => {
   try {
     const { _iduser, _idRestaurant,contenuTexte,note } = req.body
@@ -80,5 +128,8 @@ module.exports = {
   getComment,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
+  getCommentFindMine,
+  getCommentFindByUser,
+  getCommentFindByRestaurant
 }

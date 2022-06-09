@@ -3,6 +3,7 @@ const Restaurant = require("../API/models/restaurant");
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerRestaurant = require('../API/controllers/restaurant');
+const controlerComment = require('../API/controllers/comment');
 
 
 beforeAll(async () => {
@@ -180,6 +181,22 @@ describe("Test controler Restaurant", () => {
         let mockRes2 = nodeMockHttp.createResponse()
         await controlerRestaurant.createRestaurant(mockReq2, mockRes2)
 
+        let mockReqComment = nodeMockHttp.createRequest({
+            method: 'PUT',
+            url: 'api/comment',
+            body: 
+            {
+              _id:"629344e6dbb7fc6ae5c7d0f1",
+                _iduser: '562b2649b2e70464f113c04c',
+                _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
+                contenuTexte: 'Test',
+                note: '3',
+                __v: 0
+            }
+            
+          })
+          let mockResComment = nodeMockHttp.createResponse()
+          await controlerComment.createComment(mockReqComment, mockResComment)
 
         let mockReqGET = nodeMockHttp.createRequest({
             method: 'GET',

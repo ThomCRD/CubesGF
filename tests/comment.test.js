@@ -3,6 +3,8 @@ const Comment = require("../API/models/comment");
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerComment = require('../API/controllers/comment');
+const controlerRestaurant = require('../API/controllers/restaurant');
+const controlerUser = require('../API/controllers/user');
 
 
 beforeAll(async () => {
@@ -152,6 +154,271 @@ describe("Test controler Comment", () => {
     let statusCommentGET = mockResGET._getStatusCode()
     expect(resultGET.data._id).toEqual("629336128b03db82aa8c5996")
     expect(resultGET.data._id).not.toEqual("629336128b03db82aa8c5995")
+    expect(statusCommentGET).toEqual(200)
+
+    let mockReqGETMissing = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/',
+
+    })
+    let mockResGETMissing = nodeMockHttp.createResponse()
+    await controlerComment.getComment(mockReqGETMissing,mockResGETMissing)
+    let resultGETMissing = JSON.parse(mockResGETMissing._getData())
+    let statusCommentGETMissing = mockResGETMissing._getStatusCode()
+    expect(statusCommentGETMissing).toEqual(400)
+    expect(resultGETMissing.message).toEqual('Parameter missing')
+
+    let mockReqGETFalse = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/',
+      params:{id:'629336128b03db82aa8c5998'}
+
+    })
+    let mockResGETFalse = nodeMockHttp.createResponse()
+    await controlerComment.getComment(mockReqGETFalse,mockResGETFalse)
+    let resultGETFalse = JSON.parse(mockResGETFalse._getData())
+    let statusCommentGETFalse = mockResGETFalse._getStatusCode()
+    expect(statusCommentGETFalse).toEqual(404)
+    expect(resultGETFalse.message).toEqual('the comment does not exist ')
+  });
+  it("Get one comment find mine", async () => {
+    let mockReq = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/comment',
+      body: 
+      {
+        _id:"629336128b03db82aa8c5995",
+        _iduser: '562b2649b2e70464f113c04c',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
+        contenuTexte: 'Test',
+        note: '3',
+        __v: 0
+      }
+      
+    })
+    let mockRes = nodeMockHttp.createResponse()
+    await controlerComment.createComment(mockReq, mockRes)
+
+    let mockReq2 = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/comment',
+      body: 
+      {
+        _id:"629336128b03db82aa8c5996",
+        _iduser: '562b2649b2e70464f113c04b',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa1',
+        contenuTexte: 'Test',
+        note: '3',
+        __v: 0
+      }
+      
+    })
+    let mockRes2 = nodeMockHttp.createResponse()
+    await controlerComment.createComment(mockReq2, mockRes2)
+
+
+    let mockReqGET = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/findMine/',
+      params:{id:'562b2649b2e70464f113c04b'}
+  
+    })
+    let mockResGET = nodeMockHttp.createResponse()
+    await controlerComment.getCommentFindMine(mockReqGET,mockResGET)
+    let resultGET = JSON.parse(mockResGET._getData())
+    let statusCommentGET = mockResGET._getStatusCode()
+    expect(resultGET.data[0]._id).toEqual("629336128b03db82aa8c5996")
+    expect(resultGET.data[0]._id).not.toEqual("629336128b03db82aa8c5995")
+    expect(statusCommentGET).toEqual(200)
+
+    let mockReqGETMissing = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/',
+
+    })
+    let mockResGETMissing = nodeMockHttp.createResponse()
+    await controlerComment.getComment(mockReqGETMissing,mockResGETMissing)
+    let resultGETMissing = JSON.parse(mockResGETMissing._getData())
+    let statusCommentGETMissing = mockResGETMissing._getStatusCode()
+    expect(statusCommentGETMissing).toEqual(400)
+    expect(resultGETMissing.message).toEqual('Parameter missing')
+
+    let mockReqGETFalse = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/',
+      params:{id:'629336128b03db82aa8c5998'}
+
+    })
+    let mockResGETFalse = nodeMockHttp.createResponse()
+    await controlerComment.getComment(mockReqGETFalse,mockResGETFalse)
+    let resultGETFalse = JSON.parse(mockResGETFalse._getData())
+    let statusCommentGETFalse = mockResGETFalse._getStatusCode()
+    expect(statusCommentGETFalse).toEqual(404)
+    expect(resultGETFalse.message).toEqual('the comment does not exist ')
+  });
+  it("Get one comment find by user", async () => {
+    let mockReq = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/comment',
+      body: 
+      {
+        _id:"629336128b03db82aa8c5995",
+        _iduser: '562b2649b2e70464f113c04c',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa1',
+        contenuTexte: 'Test',
+        note: '3',
+        __v: 0
+      }
+      
+    })
+    let mockRes = nodeMockHttp.createResponse()
+    await controlerComment.createComment(mockReq, mockRes)
+
+    let mockReq2 = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/comment',
+      body: 
+      {
+        _id:"629336128b03db82aa8c5996",
+        _iduser: '562b2649b2e70464f113c04b',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa1',
+        contenuTexte: 'Test',
+        note: '3',
+        __v: 0
+      }
+      
+    })
+    let mockRes2 = nodeMockHttp.createResponse()
+    await controlerComment.createComment(mockReq2, mockRes2)
+
+    let mockReq3 = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/restaurant',
+      body:
+      {
+          _id: "53f1f09f2cdcc8f339e5efa1",
+          franchise: "5247019073ed0c203c79b995",
+          name: "La casa de papel",
+          adress: "62937edb873c350de6b596b2",
+          photo: "62937edb873c350de6b596b1",
+          menu: [
+              "5197c6b453cce2ec3a743811",
+              "5197c6b453cce2ec3a743812"
+          ],
+          comment: [
+              "507f191e810c19729de860ea",
+              "507f191e810c19729de860eb"
+          ]
+      }
+
+  })
+  let mockRes3 = nodeMockHttp.createResponse()
+  await controlerRestaurant.createRestaurant(mockReq3, mockRes3)
+
+    let mockReqGET = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/findByUser/',
+      params:{id:'562b2649b2e70464f113c04b'}
+  
+    })
+    let mockResGET = nodeMockHttp.createResponse()
+    await controlerComment.getCommentFindByUser(mockReqGET,mockResGET)
+    let resultGET = JSON.parse(mockResGET._getData())
+    let statusCommentGET = mockResGET._getStatusCode()
+    expect(resultGET.data[0]._id).toEqual("629336128b03db82aa8c5996")
+    expect(resultGET.data[0]._id).not.toEqual("629336128b03db82aa8c5995")
+    expect(resultGET.data[0]._idRestaurant).toBeDefined
+    expect(statusCommentGET).toEqual(200)
+
+    let mockReqGETMissing = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/',
+
+    })
+    let mockResGETMissing = nodeMockHttp.createResponse()
+    await controlerComment.getComment(mockReqGETMissing,mockResGETMissing)
+    let resultGETMissing = JSON.parse(mockResGETMissing._getData())
+    let statusCommentGETMissing = mockResGETMissing._getStatusCode()
+    expect(statusCommentGETMissing).toEqual(400)
+    expect(resultGETMissing.message).toEqual('Parameter missing')
+
+    let mockReqGETFalse = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/',
+      params:{id:'629336128b03db82aa8c5998'}
+
+    })
+    let mockResGETFalse = nodeMockHttp.createResponse()
+    await controlerComment.getComment(mockReqGETFalse,mockResGETFalse)
+    let resultGETFalse = JSON.parse(mockResGETFalse._getData())
+    let statusCommentGETFalse = mockResGETFalse._getStatusCode()
+    expect(statusCommentGETFalse).toEqual(404)
+    expect(resultGETFalse.message).toEqual('the comment does not exist ')
+  });
+  it("Get one comment find by restaurant", async () => {
+    let mockReq = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/comment',
+      body: 
+      {
+        _id:"629336128b03db82aa8c5995",
+        _iduser: '562b2649b2e70464f113c04c',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
+        contenuTexte: 'Test',
+        note: '3',
+        __v: 0
+      }
+      
+    })
+    let mockRes = nodeMockHttp.createResponse()
+    await controlerComment.createComment(mockReq, mockRes)
+
+    let mockReq2 = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/comment',
+      body: 
+      {
+        _id:"629336128b03db82aa8c5996",
+        _iduser: '5247019073ed0c203c79b994',
+        _idRestaurant: '53f1f09f2cdcc8f339e5efa1',
+        contenuTexte: 'Test',
+        note: '3',
+        __v: 0
+      }
+      
+    })
+    let mockRes2 = nodeMockHttp.createResponse()
+    await controlerComment.createComment(mockReq2, mockRes2)
+
+    let mockReqUser = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/register',
+      body: {
+          _id: "5247019073ed0c203c79b994",
+          firstName: "Oscar",
+          lastName: "Hamel",
+          email: "oscar.hamel@gmail.com",
+          password: "caramel",
+          phone: "0606060606"
+      }
+  })
+  let mockResUser = nodeMockHttp.createResponse()
+  await controlerUser.createUser(mockReqUser, mockResUser)
+
+    let mockReqGET = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/findByRestaurant/',
+      params:{id:'53f1f09f2cdcc8f339e5efa1'}
+  
+    })
+    let mockResGET = nodeMockHttp.createResponse()
+    await controlerComment.getCommentFindByRestaurant(mockReqGET,mockResGET)
+    let resultGET = JSON.parse(mockResGET._getData())
+    console.log(resultGET)
+    let statusCommentGET = mockResGET._getStatusCode()
+    expect(resultGET.data[0]._id).toEqual("629336128b03db82aa8c5996")
+    expect(resultGET.data[0]._id).not.toEqual("629336128b03db82aa8c5995")
+    expect(resultGET.data[0]._idRestaurant).toBeDefined
     expect(statusCommentGET).toEqual(200)
 
     let mockReqGETMissing = nodeMockHttp.createRequest({
