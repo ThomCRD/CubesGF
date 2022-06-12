@@ -6,11 +6,11 @@ const routesAuth = require('./API/routes/auth');
 const routesAdress = require('./API/routes/adress');
 const routesRestaurant = require('./API/routes/restaurant');
 const routesElement = require('./API/routes/element');
-
+const cors = require('cors')
 require('./Config/db')
 
-
 const app = express();
+app.use(cors())
 app.use(express.json()); // Parse Json
 
 app.use('/api', routesComment)
