@@ -25,6 +25,20 @@ const getRestaurant = async (req, res) => {
         return res.status(500).json({ message: `Erreur database`, error: err })
     }
 }
+const getRestaurantfindByName = async (req, res) => {
+    try {
+        let restaurant = await Restaurant.find({name: req.params.name})
+        .populate('comment')
+        .populate('adress')
+        .populate('menu')
+        if (restaurant === [] ) {
+            return res.status(404).json({ message: `the restaurant does not exist ` })
+        }
+        return res.json({ data: restaurant })
+    } catch (err) {
+        return res.status(500).json({ message: `Erreur database`, error: err })
+    }
+}
 const createRestaurant = async (req, res) => {
     try {
         const { franchise, name, adress, photo, menu, comment } = req.body
@@ -80,5 +94,6 @@ module.exports = {
     getRestaurant,
     createRestaurant,
     updateRestaurant,
-    deleteRestaurant
+    deleteRestaurant,
+    getRestaurantfindByName
 }

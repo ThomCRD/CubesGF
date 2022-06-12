@@ -4,6 +4,8 @@ const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerRestaurant = require('../API/controllers/restaurant');
 const controlerComment = require('../API/controllers/comment');
+const controlerAdress = require('../API/controllers/adress');
+const controlerMenu = require('../API/controllers/menu');
 
 
 beforeAll(async () => {
@@ -184,19 +186,19 @@ describe("Test controler Restaurant", () => {
         let mockReqComment = nodeMockHttp.createRequest({
             method: 'PUT',
             url: 'api/comment',
-            body: 
+            body:
             {
-              _id:"629344e6dbb7fc6ae5c7d0f1",
+                _id: "629344e6dbb7fc6ae5c7d0f1",
                 _iduser: '562b2649b2e70464f113c04c',
                 _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
                 contenuTexte: 'Test',
                 note: '3',
                 __v: 0
             }
-            
-          })
-          let mockResComment = nodeMockHttp.createResponse()
-          await controlerComment.createComment(mockReqComment, mockResComment)
+
+        })
+        let mockResComment = nodeMockHttp.createResponse()
+        await controlerComment.createComment(mockReqComment, mockResComment)
 
         let mockReqGET = nodeMockHttp.createRequest({
             method: 'GET',
@@ -236,6 +238,129 @@ describe("Test controler Restaurant", () => {
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('the restaurant does not exist ')
+    });
+    it("Get one restaurant by name", async () => {
+        let mockReq = nodeMockHttp.createRequest({
+            method: 'PUT',
+            url: 'api/restaurant',
+            body:
+            {
+                _id: "629549a125c2c09c52c89cfd",
+                franchise: "5247019073ed0c203c79b995",
+                name: "La casa de papel",
+                adress: "62937edb873c350de6b596b2",
+                photo: "62937edb873c350de6b596b1",
+                menu: [
+                    "5197c6b453cce2ec3a743811",
+                    "5197c6b453cce2ec3a743812"
+                ],
+                comment: [
+                    "507f191e810c19729de860ea",
+                    "507f191e810c19729de860eb"
+                ]
+            }
+
+        })
+        let mockRes = nodeMockHttp.createResponse()
+        await controlerRestaurant.createRestaurant(mockReq, mockRes)
+
+        let mockReq2 = nodeMockHttp.createRequest({
+            method: 'PUT',
+            url: 'api/restaurant',
+            body:
+            {
+                _id: "629549a125c2c09c52c89cfc",
+                franchise: "5247019073ed0c203c79b996",
+                name: "La casa de papon",
+                adress: "62932c0a348cafeabcc314ec",
+                photo: "62937edb873c350de6b596b4",
+                menu: [
+                    "629549a125c2c09c52c89cfd"
+                ],
+                comment: [
+                    "629344e6dbb7fc6ae5c7d0f1"
+                ]
+            }
+
+        })
+        let mockRes2 = nodeMockHttp.createResponse()
+        await controlerRestaurant.createRestaurant(mockReq2, mockRes2)
+
+        let mockReqComment = nodeMockHttp.createRequest({
+            method: 'PUT',
+            url: 'api/comment',
+            body:
+            {
+                _id: "629344e6dbb7fc6ae5c7d0f1",
+                _iduser: '562b2649b2e70464f113c04c',
+                _idRestaurant: '53f1f09f2cdcc8f339e5efa2',
+                contenuTexte: 'Test',
+                note: '3',
+                __v: 0
+            }
+
+        })
+        let mockResComment = nodeMockHttp.createResponse()
+        await controlerComment.createComment(mockReqComment, mockResComment)
+
+        let mockReqAdress = nodeMockHttp.createRequest({
+            method: 'PUT',
+            url: 'api/adress',
+            body: {
+                _id: "62932c0a348cafeabcc314ec",
+                country: "France",
+                city: "Toulouse",
+                street: "4 rue des endroits",
+                postal_code: "31000"
+            }
+        })
+        let mockResAdress = nodeMockHttp.createResponse()
+        await controlerAdress.createAdress(mockReqAdress, mockResAdress)
+
+        let mockReqMenu = nodeMockHttp.createRequest({
+            method: 'PUT',
+            url: 'api/menu',
+            body:
+            {
+                _id: "629549a125c2c09c52c89cfd",
+                promotions: "629549a125c2c09c52c89cfa",
+                photo: "629da983c638d1d0f38ee1b2",
+                name: "multifruit",
+                ingredient: [
+                    "banane", "pomme", "poire"
+                ],
+                price: 22,
+            }
+
+        })
+        let mockResMenu = nodeMockHttp.createResponse()
+        await controlerMenu.createMenu(mockReqMenu, mockResMenu)
+
+        let mockReqGET = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/restaurant/findByName/',
+            params: { name: 'La casa de papon' }
+
+        })
+        let mockResGET = nodeMockHttp.createResponse()
+        await controlerRestaurant.getRestaurantfindByName(mockReqGET, mockResGET)
+        let resultGET = JSON.parse(mockResGET._getData())
+        console.log(resultGET)
+        let statusCommentGET = mockResGET._getStatusCode()
+        expect(resultGET.data[0].name).toEqual("La casa de papon")
+        expect(statusCommentGET).toEqual(200)
+
+        let mockReqGETMissing = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/restaurant/',
+
+        })
+        let mockResGETMissing = nodeMockHttp.createResponse()
+        await controlerRestaurant.getRestaurant(mockReqGETMissing, mockResGETMissing)
+        let resultGETMissing = JSON.parse(mockResGETMissing._getData())
+        let statusCommentGETMissing = mockResGETMissing._getStatusCode()
+        expect(statusCommentGETMissing).toEqual(400)
+        expect(resultGETMissing.message).toEqual('Parameter missing')
     });
     it("Put update restaurant", async () => {
         let mockReq = nodeMockHttp.createRequest({
