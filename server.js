@@ -12,8 +12,14 @@ const routesPromotion = require('./API/routes/promotion');
 const routesMenu = require('./API/routes/menu');
 const bodyParser = require("body-parser");
 
+const app = express();
+app.use(express.json()); // Parse Json
+
 // connextion a la base de données
 require('./Config/db')
+const passport = require("passport");
+app.use(passport.initialize());
+require("./API/middlewares/passport")(passport);
 
 
 const app = express();
