@@ -6,6 +6,7 @@ const routesAuth = require('./API/routes/auth');
 const routesAdress = require('./API/routes/adress');
 const routesRestaurant = require('./API/routes/restaurant');
 const routesElement = require('./API/routes/element');
+const cors = require('cors')
 const routesImage = require('./API/routes/image');
 const routesOrder = require('./API/routes/order');
 const routesPromotion = require('./API/routes/promotion');
@@ -21,8 +22,9 @@ const passport = require("passport");
 app.use(passport.initialize());
 require("./API/middlewares/passport")(passport);
 
-
 const app = express();
+app.use(cors())
+app.use(express.json()); // Parse Json
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', routesComment)

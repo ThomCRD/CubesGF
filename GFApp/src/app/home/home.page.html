@@ -1,0 +1,118 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <img class="displayed"  height="50px" width="50px" src="../../assets/icon/goodfood-market--600.png" routerLink="/co">
+      <ion-icon size="large" slot="secondary" name="cart" routerLink="/cart"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <p class="box-title"></p>
+  <div class="scroll-box" style="padding-bottom: 5%;">
+    <div class="icon">
+      <img src="../../assets/icon/Like_Favourite_Love_Health_Heart_Favourites_Favorite-512.webp">Favorites
+    </div>
+    <div class="icon">
+      <img src="../../assets/icon/2933054.png">FastFood
+    </div>
+    <div class="icon">
+      <img src="../../assets/icon/3831114.png">Salad
+    </div>
+    <div class="icon">
+      <img src="../../assets/icon/161542.png">Drink
+    </div>
+    <div class="icon">
+      <img src="../../assets/icon/1691759.png">Dessert
+    </div>
+    <div class="icon">
+      <img src="../../assets/icon/151409.png">Menu
+    </div>
+  </div>
+
+  <p class="box-title"></p>
+  <p style="font-weight:bold; font-size: 25px;">Popular order</p>
+  <p>What people like the most</p>
+  <div class="scroll-box" style="padding-bottom: 5%;">
+    <div class="food">
+      <img (click)="openMenu()" src="../../assets/icon/téléchargement.jpeg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/i81670-recette-burger-vegetarien-au-steak-de-carottes.jpg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/téléchargement (1).jpeg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/pt143224.1351726.w430.jpg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/i42259-photo-de-pizza-regina.jpeg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/téléchargement (3).jpeg">
+    </div>
+  </div>
+
+  <p class="box-title"></p>
+  <p style="font-weight:bold; font-size: 25px;">Offer for you, right now !</p>
+  <p>New offers every week</p>
+  <div class="scroll-box" style="padding-bottom: 5%;">
+    <div class="pub">
+      <img src="../../assets/icon/Goodfood-FB-360x275.jpg">
+    </div>
+    <div class="pub">
+      <img src="../../assets/icon/burger-ads-design-template-d1f2c121ca326851fb84b492d19c379a_screen.jpg">
+    </div>
+    <div class="pub">
+      <img src="../../assets/icon/vegan-food-ads-design-template-3eff840cb01d3da07b45391106d7b948_screen.jpg">
+    </div>
+    <div class="pub">
+      <img src="../../assets/icon/maxresdefault.jpg">
+    </div>
+    <div class="pub">
+      <img src="../../assets/icon/pizza-banner-advertising-design-template-d442c4deeb024c0d9f066a4b0915840a_screen.jpg">
+    </div>
+  </div>
+
+  <p class="box-title"></p>
+  <p style="font-weight:bold; font-size: 25px;">Fresh Selection</p>
+  <p>Making you cooler</p>
+  <div class="scroll-box" style="padding-bottom: 5%;">
+    <div class="food">
+      <img src="../../assets/icon/bol-salade-plastique-charniere.webp">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/bols-salade-rond-sekipack.webp">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/40-84.jpg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/COCA_COLA.png">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/fuzetea-33cl.jpg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/bouteille-d-eau-cristalline.jpg">
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-tab-bar color="light" slot="bottom">
+  <ion-tab-button tab="tab1">
+    <ion-icon name="home" routerLink="/home">Home</ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button tab="tab2">
+    <ion-icon name="search" routerLink="/search">Search</ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button tab="tab3">
+    <ion-icon name="fast-food-outline" routerLink="/food">Orders</ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button tab="tab4">
+    <ion-icon name="person-circle-outline" routerLink="/user">Account</ion-icon>
+  </ion-tab-button>
+</ion-tab-bar>

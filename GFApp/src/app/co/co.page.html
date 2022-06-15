@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-title routerLink="/home">
+      GoodFood2.0
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="bg-img">
+    <div class="logo">
+      <ion-avatar >
+        <img src="../../assets/icon/goodfood-market--600.png">
+      </ion-avatar>
+    </div>
+  <div class="padding">
+    <ion-item >
+      <ion-label style="font-weight: bold;" color="dark">E-mail</ion-label>
+      <ion-input [(ngModel)]="coUserData.email" name="email" style="font-weight: bold;" color="dark" type="mail" placeholder="E-mail adress"></ion-input>
+    </ion-item>
+
+    <ion-item >
+      <ion-label style="font-weight: bold;" color="dark">Password</ion-label>
+      <ion-input [(ngModel)]="coUserData.password" name="password" style="font-weight: bold;" color="dark" type="password" placeholder="Password"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-button color="dark" style="font-weight: bold;" slot="end" fill="clear">Forgot your password ?</ion-button>
+    </ion-item>
+  </div>
+<ion-button (click)="coUser()" color="light" expand="block" shape="round" >Connexion</ion-button>
+<br>
+<ion-button (click)="coUser()" routerLink="/sub" color="tertiary" expand="block" shape="round">Inscription</ion-button>
+
+<div class="flex">
+  <ion-img style="width: 80px; height: 80px;" src="../../assets/icon/appstore.png"></ion-img>
+  <ion-img style="width: 70px; height: 70px;" src="../../assets/icon/googleplay.png"></ion-img>
+</div>
+
+
+</div>
+</ion-content>
