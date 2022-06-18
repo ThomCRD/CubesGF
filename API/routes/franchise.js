@@ -4,7 +4,7 @@ const router = express.Router()
 
 const  franchiseCtrl = require('../controllers/franchise')
 
-router.get('/users', franchiseCtrl.getAllFranchises)
+router.get('/franchises',checkTokenMiddleware, franchiseCtrl.getAllFranchises)
 
 router.get('/franchise/:id', franchiseCtrl.getFranchise)
 

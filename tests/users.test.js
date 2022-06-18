@@ -1,5 +1,4 @@
-const express = require('express');
-const User = require("../API/models/user");
+
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerUser = require('../API/controllers/user');

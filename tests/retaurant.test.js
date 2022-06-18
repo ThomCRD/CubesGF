@@ -1,5 +1,4 @@
-const express = require('express');
-const Restaurant = require("../API/models/restaurant");
+
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerRestaurant = require('../API/controllers/restaurant');
@@ -238,6 +237,19 @@ describe("Test controler Restaurant", () => {
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('the restaurant does not exist ')
+
+        let mockReqGETFalseError = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/restaurant/',
+            params: { id: 23 }
+
+        })
+        let mockResGETFalseError = nodeMockHttp.createResponse()
+        await controlerRestaurant.getRestaurant(mockReqGETFalseError, mockResGETFalseError)
+        let resultGETFalseError = JSON.parse(mockResGETFalseError._getData())
+        let statusCommentGETFalseError = mockResGETFalseError._getStatusCode()
+        expect(statusCommentGETFalseError).toEqual(500)
+        expect(resultGETFalseError.message).toEqual('Erreur database')
     });
     it("Get one restaurant by name", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -345,7 +357,6 @@ describe("Test controler Restaurant", () => {
         let mockResGET = nodeMockHttp.createResponse()
         await controlerRestaurant.getRestaurantfindByName(mockReqGET, mockResGET)
         let resultGET = JSON.parse(mockResGET._getData())
-        console.log(resultGET)
         let statusCommentGET = mockResGET._getStatusCode()
         expect(resultGET.data[0].name).toEqual("La casa de papon")
         expect(statusCommentGET).toEqual(200)
@@ -361,6 +372,7 @@ describe("Test controler Restaurant", () => {
         let statusCommentGETMissing = mockResGETMissing._getStatusCode()
         expect(statusCommentGETMissing).toEqual(400)
         expect(resultGETMissing.message).toEqual('Parameter missing')
+
     });
     it("Put update restaurant", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -425,6 +437,19 @@ describe("Test controler Restaurant", () => {
         let statusCommentPUTFalse = mockResPUTFalse._getStatusCode()
         expect(statusCommentPUTFalse).toEqual(404)
         expect(resultPUTFalse.message).toEqual('the restaurant does not exist ')
+        
+        let mockReqPUTFalseError = nodeMockHttp.createRequest({
+            method: 'PATCH',
+            url: 'api/restaurant/',
+            params: { id: 23 },
+            body: { ContenuTexte: 'Modify' }
+        })
+        let mockResPUTFalseError = nodeMockHttp.createResponse()
+        await controlerRestaurant.updateRestaurant(mockReqPUTFalseError, mockResPUTFalseError)
+        let resultPUTFalseError = JSON.parse(mockResPUTFalseError._getData())
+        let statusCommentPUTFalseError = mockResPUTFalseError._getStatusCode()
+        expect(statusCommentPUTFalseError).toEqual(500)
+        expect(resultPUTFalseError.message).toEqual('Restaurant not found')
 
     });
     it("Put delete restaurant", async () => {
@@ -478,6 +503,7 @@ describe("Test controler Restaurant", () => {
         expect(resultDEL.data._id).toEqual("629549a125c2c09c52c89cfd")
         expect(resultDEL.message).toEqual('Restaurant removed')
         expect(statusCommentDEL).toEqual(200)
+
         let mockReqGET = nodeMockHttp.createRequest({
             method: 'GET',
             url: 'api/restaurant/',
@@ -501,6 +527,19 @@ describe("Test controler Restaurant", () => {
         let statusCommentDELMissing = mockResDELMissing._getStatusCode()
         expect(statusCommentDELMissing).toEqual(400)
         expect(resultDELMissing.message).toEqual('Parameter missing')
+
+        let mockReqGETError = nodeMockHttp.createRequest({
+            method: 'DEL',
+            url: 'api/restaurant/',
+            params: { id: 23 }
+
+        })
+        let mockResGETError = nodeMockHttp.createResponse()
+        await controlerRestaurant.deleteRestaurant(mockReqGETError, mockResGETError)
+        let resultGETError = JSON.parse(mockResGETError._getData())
+        let statusCommentGETError = mockResGETError._getStatusCode()
+        expect(statusCommentGETError).toEqual(500)
+        expect(resultGETError.message).toEqual('Restaurant not found')
 
     });
 })

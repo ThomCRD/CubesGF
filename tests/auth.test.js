@@ -1,10 +1,10 @@
-const express = require('express');
-const User = require("../API/models/user");
+
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerUser = require('../API/controllers/user');
 const controlerAuth = require('../API/controllers/auth');
 const bcrypt = require('bcryptjs');
+
 
 
 beforeAll(async () => {
@@ -32,9 +32,6 @@ describe("Test controler Auth", () => {
         })
         let mockResUser = nodeMockHttp.createResponse()
         await controlerUser.createUser(mockReqUser, mockResUser)
-        let resultUser = JSON.parse(mockResUser._getData())
-        let statusUser = mockResUser._getStatusCode()
-        expect(statusUser).toBe(200)
 
         let mockReqUserLogging = nodeMockHttp.createRequest({
             method: 'POST',
@@ -50,6 +47,7 @@ describe("Test controler Auth", () => {
           let statusUserLogging = mockResUserLogging._getStatusCode()
           expect(statusUserLogging).toBe(200)
           expect(resultUserLogging.message).toBe("connected")
+          expect(resultUserLogging.access_token).toBeDefined()
 
           let mockReqUserLoggingFalseMail = nodeMockHttp.createRequest({
             method: 'POST',
@@ -65,6 +63,7 @@ describe("Test controler Auth", () => {
           let statusUserLoggingFalseMail = mockResUserLoggingFalseMail._getStatusCode()
           expect(statusUserLoggingFalseMail).toBe(404)
           expect(resultUserLoggingFalseMail.message).toBe("Wrong mail or password")
+
 
           let mockReqUserLoggingFalsePassword = nodeMockHttp.createRequest({
             method: 'POST',

@@ -1,5 +1,4 @@
-const express = require('express');
-const Order = require("../API/models/order");
+
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerOrder = require('../API/controllers/order');
@@ -273,6 +272,19 @@ describe("Test controler Order", () => {
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('Order does not exist')
+
+        let mockReqGETFalseError = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/order/',
+            params: { id: '45' }
+
+        })
+        let mockResGETFalseError = nodeMockHttp.createResponse()
+        await controlerOrder.getOrder(mockReqGETFalseError, mockResGETFalseError)
+        let resultGETFalseError = JSON.parse(mockResGETFalseError._getData())
+        let statusCommentGETFalseError = mockResGETFalseError._getStatusCode()
+        expect(statusCommentGETFalseError).toEqual(500)
+        expect(resultGETFalseError.message).toEqual('Database Error')
     });
     it("Get one order find mine", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -369,7 +381,7 @@ describe("Test controler Order", () => {
 
         })
         let mockResGETMissing = nodeMockHttp.createResponse()
-        await controlerOrder.getOrder(mockReqGETMissing, mockResGETMissing)
+        await controlerOrder.getOrderFindMine(mockReqGETMissing, mockResGETMissing)
         let resultGETMissing = JSON.parse(mockResGETMissing._getData())
         let statusCommentGETMissing = mockResGETMissing._getStatusCode()
         expect(statusCommentGETMissing).toEqual(400)
@@ -382,11 +394,24 @@ describe("Test controler Order", () => {
 
         })
         let mockResGETFalse = nodeMockHttp.createResponse()
-        await controlerOrder.getOrder(mockReqGETFalse, mockResGETFalse)
+        await controlerOrder.getOrderFindMine(mockReqGETFalse, mockResGETFalse)
         let resultGETFalse = JSON.parse(mockResGETFalse._getData())
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('Order does not exist')
+
+        let mockReqGETFalseError = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/order/',
+            params: { id: 65 }
+
+        })
+        let mockResGETFalseError = nodeMockHttp.createResponse()
+        await controlerOrder.getOrderFindMine(mockReqGETFalseError, mockResGETFalseError)
+        let resultGETFalseError = JSON.parse(mockResGETFalse._getData())
+        let statusCommentGETFalseError = mockResGETFalseError._getStatusCode()
+        expect(statusCommentGETFalseError).toEqual(500)
+        expect(resultGETFalseError.message).toEqual('Order does not exist')
     });
     it("Get one order by user", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -524,7 +549,7 @@ describe("Test controler Order", () => {
 
         })
         let mockResGETMissing = nodeMockHttp.createResponse()
-        await controlerOrder.getOrder(mockReqGETMissing, mockResGETMissing)
+        await controlerOrder.getOrderFindByUser(mockReqGETMissing, mockResGETMissing)
         let resultGETMissing = JSON.parse(mockResGETMissing._getData())
         let statusCommentGETMissing = mockResGETMissing._getStatusCode()
         expect(statusCommentGETMissing).toEqual(400)
@@ -542,8 +567,21 @@ describe("Test controler Order", () => {
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('Order does not exist')
+
+        let mockReqGETFalseError = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/order/',
+            params: { id: '45' }
+
+        })
+        let mockResGETFalseError = nodeMockHttp.createResponse()
+        await controlerOrder.getOrderFindByUser(mockReqGETFalseError, mockResGETFalseError)
+        let resultGETFalseError = JSON.parse(mockResGETFalseError._getData())
+        let statusCommentGETFalseError = mockResGETFalseError._getStatusCode()
+        expect(statusCommentGETFalseError).toEqual(500)
+        expect(resultGETFalseError.message).toEqual('Database Error')
     });
-    it("Get one order by user", async () => {
+    it("Get one order by restaurant", async () => {
         let mockReq = nodeMockHttp.createRequest({
             method: 'PUT',
             url: 'api/order',
@@ -664,7 +702,7 @@ describe("Test controler Order", () => {
 
         })
         let mockResGETMissing = nodeMockHttp.createResponse()
-        await controlerOrder.getOrder(mockReqGETMissing, mockResGETMissing)
+        await controlerOrder.getOrderFindByRestaurant(mockReqGETMissing, mockResGETMissing)
         let resultGETMissing = JSON.parse(mockResGETMissing._getData())
         let statusCommentGETMissing = mockResGETMissing._getStatusCode()
         expect(statusCommentGETMissing).toEqual(400)
@@ -682,6 +720,19 @@ describe("Test controler Order", () => {
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('Order does not exist')
+
+        let mockReqGETFalseError = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/order/',
+            params: { id: '54' }
+
+        })
+        let mockResGETFalseError = nodeMockHttp.createResponse()
+        await controlerOrder.getOrderFindByRestaurant(mockReqGETFalseError, mockResGETFalseError)
+        let resultGETFalseError = JSON.parse(mockResGETFalseError._getData())
+        let statusCommentGETFalseError = mockResGETFalseError._getStatusCode()
+        expect(statusCommentGETFalseError).toEqual(500)
+        expect(resultGETFalseError.message).toEqual('Database Error')
     });
     it("Put delete order", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -728,6 +779,7 @@ describe("Test controler Order", () => {
         expect(resultDEL.data._id).toEqual("629b7a10150433a92f9379cc")
         expect(resultDEL.message).toEqual('Order removed')
         expect(statusCommentDEL).toEqual(200)
+
         let mockReqGET = nodeMockHttp.createRequest({
             method: 'GET',
             url: 'api/order/',
@@ -751,6 +803,18 @@ describe("Test controler Order", () => {
         let statusCommentDELMissing = mockResDELMissing._getStatusCode()
         expect(statusCommentDELMissing).toEqual(400)
         expect(resultDELMissing.message).toEqual('Parameter missing')
+
+        let mockReqDELFalseError = nodeMockHttp.createRequest({
+            method: 'DEL',
+            url: 'api/order/',
+            params: { id: '6' },
+        })
+        let mockResDELFalseError = nodeMockHttp.createResponse()
+        await controlerOrder.deleteOrder(mockReqDELFalseError, mockResDELFalseError)
+        let resultDELFalseError = JSON.parse(mockResDELFalseError._getData())
+        let statusCommentDELFalseError = mockResDELFalseError._getStatusCode()
+        expect(statusCommentDELFalseError).toEqual(500)
+        expect(resultDELFalseError.message).toEqual('Order not found')
 
     });
 })

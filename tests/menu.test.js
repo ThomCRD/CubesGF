@@ -1,5 +1,4 @@
-const express = require('express');
-const Menu = require("../API/models/menu");
+
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerMenu = require('../API/controllers/menu');
@@ -197,6 +196,19 @@ describe("Test controler Menu", () => {
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('the menu does not exist ')
+
+        let mockReqGETFalseError = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/menu/',
+            params: { id: '56' }
+
+        })
+        let mockResGETFalseError = nodeMockHttp.createResponse()
+        await controlerMenu.getMenu(mockReqGETFalseError, mockResGETFalseError)
+        let resultGETFalseError = JSON.parse(mockResGETFalseError._getData())
+        let statusCommentGETFalseError = mockResGETFalseError._getStatusCode()
+        expect(statusCommentGETFalseError).toEqual(500)
+        expect(resultGETFalseError.message).toEqual('Erreur database')
     });
     it("Put update menu", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -244,6 +256,19 @@ describe("Test controler Menu", () => {
         expect(statusCommentPUTMissing).toEqual(400)
         expect(resultPUTMissing.message).toEqual('Parameter missing')
 
+        let mockReqPUTFalseError = nodeMockHttp.createRequest({
+            method: 'PATCH',
+            url: 'api/menu/',
+            params: { id: '54' },
+            body: { ContenuTexte: 'Modify' }
+        })
+        let mockResPUTFalseError = nodeMockHttp.createResponse()
+        await controlerMenu.updateMenu(mockReqPUTFalseError, mockResPUTFalseError)
+        let resultPUTFalseError = JSON.parse(mockResPUTFalseError._getData())
+        let statusCommentPUTFalseError = mockResPUTFalseError._getStatusCode()
+        expect(statusCommentPUTFalseError).toEqual(500)
+        expect(resultPUTFalseError.message).toEqual('Menu not found')
+        
         let mockReqPUTFalse = nodeMockHttp.createRequest({
             method: 'PATCH',
             url: 'api/menu/',
@@ -327,6 +352,18 @@ describe("Test controler Menu", () => {
         let statusCommentDELMissing = mockResDELMissing._getStatusCode()
         expect(statusCommentDELMissing).toEqual(400)
         expect(resultDELMissing.message).toEqual('Parameter missing')
+
+        let mockReqDELMissingError = nodeMockHttp.createRequest({
+            method: 'DELETE',
+            url: 'api/menu/',
+            params: { id: '45' },
+        })
+        let mockResDELMissingError = nodeMockHttp.createResponse()
+        await controlerMenu.deleteMenu(mockReqDELMissingError, mockResDELMissingError)
+        let resultDELMissingError = JSON.parse(mockResDELMissingError._getData())
+        let statusCommentDELMissingError = mockResDELMissingError._getStatusCode()
+        expect(statusCommentDELMissingError).toEqual(500)
+        expect(resultDELMissingError.message).toEqual('Menu not found')
 
     });
 })

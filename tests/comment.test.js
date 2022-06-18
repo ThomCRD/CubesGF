@@ -1,5 +1,4 @@
-const express = require('express');
-const Comment = require("../API/models/comment");
+
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerComment = require('../API/controllers/comment');
@@ -180,6 +179,19 @@ describe("Test controler Comment", () => {
     let statusCommentGETFalse = mockResGETFalse._getStatusCode()
     expect(statusCommentGETFalse).toEqual(404)
     expect(resultGETFalse.message).toEqual('the comment does not exist ')
+
+    let mockReqGETError = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/',
+      params:{id:'34'}
+
+    })
+    let mockResGETError = nodeMockHttp.createResponse()
+    await controlerComment.getComment(mockReqGETError,mockResGETError)
+    let resultGETError = JSON.parse(mockResGETError._getData())
+    let statusCommentGETError = mockResGETError._getStatusCode()
+    expect(statusCommentGETError).toEqual(500)
+    expect(resultGETError.message).toEqual('Erreur database')
   });
   it("Get one comment find mine", async () => {
     let mockReq = nodeMockHttp.createRequest({
@@ -233,11 +245,11 @@ describe("Test controler Comment", () => {
 
     let mockReqGETMissing = nodeMockHttp.createRequest({
       method: 'GET',
-      url: 'api/comment/',
+      url: 'api/comment/findMine/',
 
     })
     let mockResGETMissing = nodeMockHttp.createResponse()
-    await controlerComment.getComment(mockReqGETMissing,mockResGETMissing)
+    await controlerComment.getCommentFindMine(mockReqGETMissing,mockResGETMissing)
     let resultGETMissing = JSON.parse(mockResGETMissing._getData())
     let statusCommentGETMissing = mockResGETMissing._getStatusCode()
     expect(statusCommentGETMissing).toEqual(400)
@@ -245,8 +257,8 @@ describe("Test controler Comment", () => {
 
     let mockReqGETFalse = nodeMockHttp.createRequest({
       method: 'GET',
-      url: 'api/comment/',
-      params:{id:'629336128b03db82aa8c5998'}
+      url: 'api/comment/findMine/',
+      params:{id:'629336128b03db82aa8c5992'}
 
     })
     let mockResGETFalse = nodeMockHttp.createResponse()
@@ -255,6 +267,19 @@ describe("Test controler Comment", () => {
     let statusCommentGETFalse = mockResGETFalse._getStatusCode()
     expect(statusCommentGETFalse).toEqual(404)
     expect(resultGETFalse.message).toEqual('the comment does not exist ')
+
+    let mockReqGETError = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/findMine/',
+      params:{id:'34'}
+
+    })
+    let mockResGETError = nodeMockHttp.createResponse()
+    await controlerComment.getCommentFindMine(mockReqGETError,mockResGETError)
+    let resultGETError = JSON.parse(mockResGETError._getData())
+    let statusCommentGETError = mockResGETError._getStatusCode()
+    expect(statusCommentGETError).toEqual(500)
+    expect(resultGETError.message).toEqual('Erreur database')
   });
   it("Get one comment find by user", async () => {
     let mockReq = nodeMockHttp.createRequest({
@@ -332,11 +357,11 @@ describe("Test controler Comment", () => {
 
     let mockReqGETMissing = nodeMockHttp.createRequest({
       method: 'GET',
-      url: 'api/comment/',
+      url: 'api/comment/findByUser/',
 
     })
     let mockResGETMissing = nodeMockHttp.createResponse()
-    await controlerComment.getComment(mockReqGETMissing,mockResGETMissing)
+    await controlerComment.getCommentFindByUser(mockReqGETMissing,mockResGETMissing)
     let resultGETMissing = JSON.parse(mockResGETMissing._getData())
     let statusCommentGETMissing = mockResGETMissing._getStatusCode()
     expect(statusCommentGETMissing).toEqual(400)
@@ -344,7 +369,7 @@ describe("Test controler Comment", () => {
 
     let mockReqGETFalse = nodeMockHttp.createRequest({
       method: 'GET',
-      url: 'api/comment/',
+      url: 'api/comment/findByUser/',
       params:{id:'629336128b03db82aa8c5998'}
 
     })
@@ -354,6 +379,22 @@ describe("Test controler Comment", () => {
     let statusCommentGETFalse = mockResGETFalse._getStatusCode()
     expect(statusCommentGETFalse).toEqual(404)
     expect(resultGETFalse.message).toEqual('the comment does not exist ')
+
+
+    let mockReqGETError = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/findByUser/',
+      params:{id:'45'}
+
+    })
+    let mockResGETError = nodeMockHttp.createResponse()
+    await controlerComment.getCommentFindByUser(mockReqGETError,mockResGETError)
+    let resultGETError = JSON.parse(mockResGETError._getData())
+    let statusCommentGETError = mockResGETError._getStatusCode()
+    expect(statusCommentGETError).toEqual(500)
+    expect(resultGETError.message).toEqual('Erreur database')
+
+
   });
   it("Get one comment find by restaurant", async () => {
     let mockReq = nodeMockHttp.createRequest({
@@ -414,7 +455,6 @@ describe("Test controler Comment", () => {
     let mockResGET = nodeMockHttp.createResponse()
     await controlerComment.getCommentFindByRestaurant(mockReqGET,mockResGET)
     let resultGET = JSON.parse(mockResGET._getData())
-    console.log(resultGET)
     let statusCommentGET = mockResGET._getStatusCode()
     expect(resultGET.data[0]._id).toEqual("629336128b03db82aa8c5996")
     expect(resultGET.data[0]._id).not.toEqual("629336128b03db82aa8c5995")
@@ -423,11 +463,11 @@ describe("Test controler Comment", () => {
 
     let mockReqGETMissing = nodeMockHttp.createRequest({
       method: 'GET',
-      url: 'api/comment/',
+      url: 'api/comment/findByRestaurant/',
 
     })
     let mockResGETMissing = nodeMockHttp.createResponse()
-    await controlerComment.getComment(mockReqGETMissing,mockResGETMissing)
+    await controlerComment.getCommentFindByRestaurant(mockReqGETMissing,mockResGETMissing)
     let resultGETMissing = JSON.parse(mockResGETMissing._getData())
     let statusCommentGETMissing = mockResGETMissing._getStatusCode()
     expect(statusCommentGETMissing).toEqual(400)
@@ -435,7 +475,7 @@ describe("Test controler Comment", () => {
 
     let mockReqGETFalse = nodeMockHttp.createRequest({
       method: 'GET',
-      url: 'api/comment/',
+      url: 'api/comment/findByRestaurant/',
       params:{id:'629336128b03db82aa8c5998'}
 
     })
@@ -445,6 +485,19 @@ describe("Test controler Comment", () => {
     let statusCommentGETFalse = mockResGETFalse._getStatusCode()
     expect(statusCommentGETFalse).toEqual(404)
     expect(resultGETFalse.message).toEqual('the comment does not exist ')
+
+    let mockReqGETError = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/comment/findByRestaurant/',
+      params:{id:'45'}
+
+    })
+    let mockResGETError = nodeMockHttp.createResponse()
+    await controlerComment.getCommentFindByRestaurant(mockReqGETError,mockResGETError)
+    let resultGETError = JSON.parse(mockResGETError._getData())
+    let statusCommentGETError = mockResGETError._getStatusCode()
+    expect(statusCommentGETError).toEqual(500)
+    expect(resultGETError.message).toEqual('Erreur database')
   });
   it("Put update comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
@@ -502,6 +555,19 @@ describe("Test controler Comment", () => {
     let statusCommentPUTFalse = mockResPUTFalse._getStatusCode()
     expect(statusCommentPUTFalse).toEqual(404)
     expect(resultPUTFalse.message).toEqual('the comment does not exist ')
+
+    let mockReqPUTError = nodeMockHttp.createRequest({
+      method: 'PATCH',
+      url: 'api/comment/',
+      params:{id:'45'},
+      body:{ContenuTexte: 'Modify'}
+    })
+    let mockResPUTError = nodeMockHttp.createResponse()
+    await controlerComment.updateComment(mockReqPUTError,mockResPUTError)
+    let resultPUTError = JSON.parse(mockResPUTError._getData())
+    let statusCommentPUTError = mockResPUTError._getStatusCode()
+    expect(statusCommentPUTError).toEqual(500)
+    expect(resultPUTError.message).toEqual('Comment not found')
     
   });
   it("Put delete comment", async () => {
@@ -551,6 +617,7 @@ describe("Test controler Comment", () => {
     expect(resultDEL.data.note).toEqual("3")
     expect(resultDEL.message).toEqual('Comment removed')
     expect(statusCommentDEL).toEqual(200)
+
     let mockReqGET = nodeMockHttp.createRequest({
       method: 'GET',
       url: 'api/comment/',
@@ -574,6 +641,22 @@ describe("Test controler Comment", () => {
     let statusCommentDELMissing = mockResDELMissing._getStatusCode()
     expect(statusCommentDELMissing).toEqual(400)
     expect(resultDELMissing.message).toEqual('Parameter missing')
+
+    let mockReqDELError = nodeMockHttp.createRequest({
+      method: 'DELETE',
+      url: 'api/comment/',
+      params:{id:'34'},
+
+    })
+  
+    let mockResDELError = nodeMockHttp.createResponse()
+    await controlerComment.deleteComment(mockReqDELError,mockResDELError)
+    let resultDELError = JSON.parse(mockResDELError._getData())
+    let statusCommentDELError = mockResDELError._getStatusCode()
+    expect(resultDELError.message).toEqual('Comment not found')
+    expect(statusCommentDELError).toEqual(500)
+
+    
 
   });
 })

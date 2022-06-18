@@ -163,6 +163,19 @@ describe("Test controler Element", () => {
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('the element does not exist ')
+
+        let mockReqGETFalseError = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/element/',
+            params: { id: '56' }
+
+        })
+        let mockResGETFalseError = nodeMockHttp.createResponse()
+        await controlerElement.getElement(mockReqGETFalseError, mockResGETFalseError)
+        let resultGETFalseError = JSON.parse(mockResGETFalseError._getData())
+        let statusCommentGETFalseError = mockResGETFalseError._getStatusCode()
+        expect(statusCommentGETFalseError).toEqual(500)
+        expect(resultGETFalseError.message).toEqual('Erreur database')
     });
     it("Put update element", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -218,6 +231,19 @@ describe("Test controler Element", () => {
         expect(statusCommentPUTFalse).toEqual(404)
         expect(resultPUTFalse.message).toEqual('the element does not exist ')
 
+        let mockReqPUTFalseError = nodeMockHttp.createRequest({
+            method: 'PATCH',
+            url: 'api/element/',
+            params: { id: '87' },
+            body: { ContenuTexte: 'Modify' }
+        })
+        let mockResPUTFalseError = nodeMockHttp.createResponse()
+        await controlerElement.updateElement(mockReqPUTFalseError, mockResPUTFalseError)
+        let resultPUTFalsError = JSON.parse(mockResPUTFalseError._getData())
+        let statusCommentPUTFalseError = mockResPUTFalseError._getStatusCode()
+        expect(statusCommentPUTFalseError).toEqual(500)
+        expect(resultPUTFalsError.message).toEqual('Element not found')
+
     });
     it("Put delete element", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -261,18 +287,32 @@ describe("Test controler Element", () => {
         expect(resultDEL.data.volume).toEqual(4)
         expect(resultDEL.message).toEqual('Element removed')
         expect(statusCommentDEL).toEqual(200)
+
         let mockReqGET = nodeMockHttp.createRequest({
-            method: 'GET',
+            method: 'DEL',
             url: 'api/element/',
             params: { id: '629554a6b6ed5cb7dbb0e475' }
 
         })
         let mockResGET = nodeMockHttp.createResponse()
-        await controlerElement.getElement(mockReqGET, mockResGET)
+        await controlerElement.deleteElement(mockReqGET, mockResGET)
         let resultGET = JSON.parse(mockResGET._getData())
         let statusCommentGET = mockResGET._getStatusCode()
         expect(statusCommentGET).toEqual(404)
         expect(resultGET.message).toEqual('the element does not exist ')
+
+        let mockReqGETError = nodeMockHttp.createRequest({
+            method: 'DEL',
+            url: 'api/element/',
+            params: { id: '34' }
+
+        })
+        let mockResGETError = nodeMockHttp.createResponse()
+        await controlerElement.deleteElement(mockReqGETError, mockResGETError)
+        let resultGETError = JSON.parse(mockResGETError._getData())
+        let statusCommentGETError = mockResGETError._getStatusCode()
+        expect(statusCommentGETError).toEqual(500)
+        expect(resultGETError.message).toEqual('Element not found')
 
         let mockReqDELMissing = nodeMockHttp.createRequest({
             method: 'DEL',

@@ -1,5 +1,4 @@
-const express = require('express');
-const Promotion = require("../API/models/order");
+
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerPromotion = require('../API/controllers/promotion');
@@ -44,11 +43,11 @@ describe("Test controler Promotion", () => {
         let mockReqFalse = nodeMockHttp.createRequest({
             method: 'PUT',
             url: 'api/promotion',
-            body: {
-                _iduser: "300",
-                _idRestaurant: "700",
-                ContenuTexte: "Test",
-                Notation: "3",
+            body: 
+            {
+                menus: "629549a125c2c09c52c89cfd",
+                start_date: "2022-06-06T00:00:00.000+00:00",
+                end_date: "2022-06-09T00:00:00.000+00:00",
             }
         })
         let mockResFalse = nodeMockHttp.createResponse()
@@ -176,6 +175,19 @@ describe("Test controler Promotion", () => {
         let statusCommentGETFalse = mockResGETFalse._getStatusCode()
         expect(statusCommentGETFalse).toEqual(404)
         expect(resultGETFalse.message).toEqual('the promotion does not exist ')
+
+        let mockReqGETFalseError = nodeMockHttp.createRequest({
+            method: 'GET',
+            url: 'api/promotion/',
+            params: { id: '34' }
+
+        })
+        let mockResGETFalseError = nodeMockHttp.createResponse()
+        await controlerPromotion.getPromotion(mockReqGETFalseError, mockResGETFalseError)
+        let resultGETFalseError = JSON.parse(mockResGETFalseError._getData())
+        let statusCommentGETFalseError = mockResGETFalseError._getStatusCode()
+        expect(statusCommentGETFalseError).toEqual(500)
+        expect(resultGETFalseError.message).toEqual('Erreur database')
     });
     it("Put update promotion", async () => {
         let mockReq = nodeMockHttp.createRequest({
@@ -220,6 +232,19 @@ describe("Test controler Promotion", () => {
         expect(statusCommentPUTMissing).toEqual(400)
         expect(resultPUTMissing.message).toEqual('Parameter missing')
 
+        let mockReqPUTFalseError = nodeMockHttp.createRequest({
+            method: 'PATCH',
+            url: 'api/promotion/',
+            params: { id: '23' },
+            body: { ContenuTexte: 'Modify' }
+        })
+        let mockResPUTFalseError = nodeMockHttp.createResponse()
+        await controlerPromotion.updatePromotion(mockReqPUTFalseError, mockResPUTFalseError)
+        let resultPUTFalseError = JSON.parse(mockResPUTFalseError._getData())
+        let statusCommentPUTFalseError = mockResPUTFalseError._getStatusCode()
+        expect(statusCommentPUTFalseError).toEqual(500)
+        expect(resultPUTFalseError.message).toEqual('Promotion not found')
+
         let mockReqPUTFalse = nodeMockHttp.createRequest({
             method: 'PATCH',
             url: 'api/promotion/',
@@ -262,6 +287,18 @@ describe("Test controler Promotion", () => {
         let statusCommentDELFalse = mockResDELFalse._getStatusCode()
         expect(statusCommentDELFalse).toEqual(404)
         expect(resultDELFalse.message).toEqual('the promotion does not exist ')
+
+        let mockReqDELFalseError = nodeMockHttp.createRequest({
+            method: 'DEL',
+            url: 'api/promotion/',
+            params: { id: 23 },
+        })
+        let mockResDELFalseError = nodeMockHttp.createResponse()
+        await controlerPromotion.deletePromotion(mockReqDELFalseError, mockResDELFalseError)
+        let resultDELFalseError = JSON.parse(mockResDELFalseError._getData())
+        let statusCommentDELFalseError = mockResDELFalseError._getStatusCode()
+        expect(statusCommentDELFalseError).toEqual(500)
+        expect(resultDELFalseError.message).toEqual('Promotion not found')
 
         let mockReqDEL = nodeMockHttp.createRequest({
             method: 'DELETE',

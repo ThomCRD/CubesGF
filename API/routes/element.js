@@ -4,7 +4,7 @@ const elementCtrl = require('../controllers/element')
 const checkTokenMiddleware = require('../jsonwebtoken/check')
 
 
-router.get('/comments', elementCtrl.getElements)
+router.get('/elements', elementCtrl.getElements)
 
 router.get('/element/:id', elementCtrl.getElement)
 

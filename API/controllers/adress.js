@@ -36,7 +36,7 @@ const createAdress = async (req, res) => {
     }
     let adress = await Adress.findOne({ country: country,city:city ,street:street,postal_code:postal_code})
     if (adress !== null) {
-        return res.status(400).json({ message: `Adress :${country},${city},${street},${postal_code} existed` })
+        return res.status(400).json({ message: `Adress existed` })
     }
     adress = await Adress.create(req.body)
     return res.json({ message: `Adress created`, data: adress })

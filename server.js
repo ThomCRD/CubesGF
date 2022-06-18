@@ -13,7 +13,8 @@ const routesMenu = require('./API/routes/menu');
 const bodyParser = require("body-parser");
 
 // connextion a la base de données
-require('./Config/db')
+const db = require('./Config/db');
+db.connectDB()
 
 
 const app = express();
@@ -31,7 +32,7 @@ app.use('/api', routesPromotion)
 app.use('/api', routesMenu)
 
 
-app.listen( process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
     console.log(`Server Started at ${process.env.PORT}`)
 })
 

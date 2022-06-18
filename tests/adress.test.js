@@ -1,5 +1,4 @@
-const express = require('express');
-const Adress = require("../API/models/adress");
+
 const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerAdress = require('../API/controllers/adress');
@@ -43,12 +42,10 @@ describe("Test controler Adress", () => {
     let mockReqFalse = nodeMockHttp.createRequest({
       method: 'PUT',
       url: 'api/comment',
-      body: {
-        _id: "2333",
-        _iduser: "300",
-        _idRestaurant: "700",
-        ContenuTexte: "Test",
-        Notation: "3",
+      body:{
+        country :"France",
+        city:"Toulouse",
+        street :"4 rue des endroits"
       }
     })
     let mockResFalse = nodeMockHttp.createResponse()
@@ -57,6 +54,24 @@ describe("Test controler Adress", () => {
     let statusAdressFalse = mockResFalse._getStatusCode()
     expect(statusAdressFalse).toBe(400)
     expect(resultFalse.message).toBe("Data Missing")
+
+    let mockReqExist = nodeMockHttp.createRequest({
+      method: 'PUT',
+      url: 'api/adress',
+      body: {
+        country :"France",
+        city:"Toulouse",
+        street :"4 rue des endroits",
+        postal_code:"31000"
+      }
+    })
+    let mockResExist = nodeMockHttp.createResponse()
+    await controlerAdress.createAdress(mockReqExist, mockResExist)
+    let resultExist = JSON.parse(mockResExist._getData())
+    let statusAdressExist = mockResExist._getStatusCode()
+    expect(statusAdressExist).toBe(400)
+    expect(resultExist.message).toBe("Adress existed")
+
 
   });
   it("Get all adress", async () => {
@@ -104,6 +119,9 @@ describe("Test controler Adress", () => {
     expect(resultGET).toBeDefined()
     expect(resultGET.data[0]._id).toEqual("62932c0a348cafeabcc314ec")
     expect(resultGET.data[1]._id).toEqual("62932c0a348cafeabcc314eb")
+
+
+
   });
   it("Get one comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
@@ -177,6 +195,19 @@ describe("Test controler Adress", () => {
     let statusAdressGETFalse = mockResGETFalse._getStatusCode()
     expect(statusAdressGETFalse).toEqual(404)
     expect(resultGETFalse.message).toEqual('the adress does not exist ')
+
+    let mockReqGETError = nodeMockHttp.createRequest({
+      method: 'GET',
+      url: 'api/adress/',
+      params:{id:'665'}
+
+    })
+    let mockResGETError = nodeMockHttp.createResponse()
+    await controlerAdress.getAdress(mockReqGETError,mockResGETError)
+    let resultGETError = JSON.parse(mockResGETError._getData())
+    let statusAdressGETError = mockResGETError._getStatusCode()
+    expect(statusAdressGETError).toEqual(500)
+    expect(resultGETError.message).toEqual("Erreur database")
   });
   it("patch update comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
@@ -226,16 +257,28 @@ describe("Test controler Adress", () => {
     let mockReqPUTFalse = nodeMockHttp.createRequest({
       method: 'PATCH',
       url: 'api/adress/',
-      params:{id:'629336ca3c46ac8ed920a8c64'},
+      params:{id:'629336ca3c46ac8ed920a8c7'},
       body:{city: 'Modify'}
     })
     let mockResPUTFalse = nodeMockHttp.createResponse()
     await controlerAdress.updateAdress(mockReqPUTFalse,mockResPUTFalse)
     let resultPUTFalse = JSON.parse(mockResPUTFalse._getData())
     let statusAdressPUTFalse = mockResPUTFalse._getStatusCode()
-    expect(statusAdressPUTFalse).toEqual(500)
-    expect(resultPUTFalse.message).toEqual('Adress not found')
- 
+    expect(statusAdressPUTFalse).toEqual(404)
+    expect(resultPUTFalse.message).toEqual('the adress does not exist ')
+
+    let mockReqPUTError = nodeMockHttp.createRequest({
+      method: 'PATCH',
+      url: 'api/adress/',
+      params:{id:'6293'},
+      body:{city: 'Modify'}
+    })
+    let mockResPUTError = nodeMockHttp.createResponse()
+    await controlerAdress.updateAdress(mockReqPUTError,mockResPUTError)
+    let resultPUTError = JSON.parse(mockResPUTError._getData())
+    let statusAdressPUTErorr = mockResPUTError._getStatusCode()
+    expect(statusAdressPUTErorr).toEqual(500)
+    expect(resultPUTError.message).toEqual('Adress not found')
   });
   it("Put delete comment", async () => {
     let mockReq = nodeMockHttp.createRequest({
@@ -258,7 +301,7 @@ describe("Test controler Adress", () => {
     let mockReqDELFalse = nodeMockHttp.createRequest({
       method: 'DEL',
       url: 'api/adress/',
-      params:{id:"629339278358c4931003327z"},
+      params:{id:"32"},
     })
     let mockResDELFalse = nodeMockHttp.createResponse()
     await controlerAdress.deleteAdress(mockReqDELFalse,mockResDELFalse)
@@ -284,6 +327,7 @@ describe("Test controler Adress", () => {
     expect(resultDEL.data.postal_code).toEqual("31000")
     expect(resultDEL.message).toEqual('Adress removed')
     expect(statusAdressDEL).toEqual(200)
+
     let mockReqGET = nodeMockHttp.createRequest({
       method: 'GET',
       url: 'api/adress/',
@@ -307,6 +351,7 @@ describe("Test controler Adress", () => {
     let statusAdressDELMissing = mockResDELMissing._getStatusCode()
     expect(statusAdressDELMissing).toEqual(400)
     expect(resultDELMissing.message).toEqual('Parameter missing')
+
 
   });
 })
