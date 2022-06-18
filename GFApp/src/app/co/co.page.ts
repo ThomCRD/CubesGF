@@ -3,8 +3,7 @@ import { Router } from 'express';
 import { AuthService } from '../auth.service';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { mongo } from 'mongoose';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-co',
@@ -53,7 +52,7 @@ export class CoPage implements OnInit {
     //    }, error => {
     //     console.log('couser err'+error);
     //   });
-    return this.http.post('http://localhost:9000/API/login',body)
+    return this.http.post('http://localhost:9000/API/login-user',body)
     .subscribe(
       data => {
       console.log('couser data '+data);

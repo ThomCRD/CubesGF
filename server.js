@@ -22,7 +22,6 @@ const passport = require("passport");
 app.use(passport.initialize());
 require("./API/middlewares/passport")(passport);
 
-const app = express();
 app.use(cors())
 app.use(express.json()); // Parse Json
 app.use(bodyParser.urlencoded({ extended: true }));
