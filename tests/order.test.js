@@ -4,7 +4,7 @@ const db = require("./testDb");
 const nodeMockHttp = require('node-mocks-http')
 const controlerOrder = require('../API/controllers/order');
 const controlerRestaurant = require('../API/controllers/restaurant');
-const controlerUser = require('../API/controllers/user');
+const controlerAuth = require('../API/controllers/auth');
 const controlerPromotion = require('../API/controllers/promotion');
 const controlerMenu = require('../API/controllers/menu');
 
@@ -193,7 +193,7 @@ describe("Test controler Order", () => {
             }
         })
         let mockResUser = nodeMockHttp.createResponse()
-        await controlerUser.createUser(mockReqUser, mockResUser)
+        await controlerAuth.userRegister(mockReqUser.body, "user", mockResUser)
 
 
         let mockReqProm = nodeMockHttp.createRequest({
@@ -463,7 +463,7 @@ describe("Test controler Order", () => {
             }
         })
         let mockResUser = nodeMockHttp.createResponse()
-        await controlerUser.createUser(mockReqUser, mockResUser)
+        await controlerAuth.userRegister(mockReqUser.body, "user", mockResUser)
 
         let mockReqProm = nodeMockHttp.createRequest({
             method: 'PUT',

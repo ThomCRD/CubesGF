@@ -1,6 +1,7 @@
 const Promotion = require('../models/promotion')
 
 
+// Get all promotions.
 const getAllPromotions = async (req, res) => {
     try {
         let promotion = await Promotion.find()
@@ -9,6 +10,7 @@ const getAllPromotions = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Get a single promotion.
 const getPromotion = async (req, res) => {
     let promotionId = parseInt(req.params.id)
     // Vérification du param
@@ -25,6 +27,7 @@ const getPromotion = async (req, res) => {
         return res.status(500).json({ message: `Erreur database`, error: err })
     }
 }
+// Create a promotion.
 const createPromotion = async (req, res) => {
     try {
         const { menus, start_date, end_date, price } = req.body
@@ -43,6 +46,7 @@ const createPromotion = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Update a promotion
 const updatePromotion = async (req, res) => {
     let promotionId = parseInt(req.params.id)
     // Vérification du param
@@ -59,6 +63,7 @@ const updatePromotion = async (req, res) => {
         return res.status(500).json({ message: `Promotion not found`, error: err })
     }
 }
+// Delete a promotion
 const deletePromotion = async (req, res) => {
     let promotionId = parseInt(req.params.id)
     // Vérification du param

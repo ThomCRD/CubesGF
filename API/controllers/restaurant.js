@@ -1,6 +1,7 @@
 const Restaurant = require('../models/restaurant')
 
 
+// Get a list of restaurants.
 const getRestaurants = async (req, res) => {
     try {
         let restaurant = await Restaurant.find()
@@ -9,9 +10,11 @@ const getRestaurants = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Get a single restaurant.
 const getRestaurant = async (req, res) => {
     let restaurantId = parseInt(req.params.id)
-    // Vérification du param
+
+        // Check if a parameter is missing.
     if (!restaurantId) {
         return res.status(400).json({ message: `Parameter missing` })
     }
@@ -25,6 +28,7 @@ const getRestaurant = async (req, res) => {
         return res.status(500).json({ message: `Erreur database`, error: err })
     }
 }
+// Get a restaurant by name.
 const getRestaurantfindByName = async (req, res) => {
     try {
         let restaurant = await Restaurant.find({name: req.params.name})
@@ -39,6 +43,7 @@ const getRestaurantfindByName = async (req, res) => {
         return res.status(500).json({ message: `Erreur database`, error: err })
     }
 }
+// Create a new restaurant
 const createRestaurant = async (req, res) => {
     try {
         const { franchise, name, adress, photo, menu, comment } = req.body
@@ -57,6 +62,7 @@ const createRestaurant = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Update a restaurant
 const updateRestaurant = async (req, res) => {
     let restaurantId = parseInt(req.params.id)
     // Vérification du param
@@ -73,6 +79,7 @@ const updateRestaurant = async (req, res) => {
         return res.status(500).json({ message: `Restaurant not found`, error: err })
     }
 }
+// Delete a restaurant
 const deleteRestaurant = async (req, res) => {
     let restaurantId = parseInt(req.params.id)
     // Vérification du param

@@ -12,6 +12,7 @@ const commentSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
 });
+// Pre save callback.
 commentSchema.pre('save', function (next) {
     now = new Date();
     this.updated_at = now;

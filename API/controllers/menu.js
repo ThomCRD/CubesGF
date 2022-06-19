@@ -1,6 +1,7 @@
 const Menu = require('../models/menu')
 
 
+// Get all menus.
 const getAllMenu = async (req, res) => {
     try {
         let menu = await Menu.find()
@@ -9,6 +10,7 @@ const getAllMenu = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Get a menu.
 const getMenu = async (req, res) => {
     let menuId = parseInt(req.params.id)
     // Vérification du param
@@ -25,6 +27,7 @@ const getMenu = async (req, res) => {
         return res.status(500).json({ message: `Erreur database`, error: err })
     }
 }
+// Create a new menu.
 const createMenu = async (req, res) => {
     try {
         const { promotions, photo, name, ingredient, price } = req.body
@@ -43,6 +46,7 @@ const createMenu = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Update a menu.
 const updateMenu = async (req, res) => {
     let menuId = parseInt(req.params.id)
     // Vérification du param
@@ -59,6 +63,7 @@ const updateMenu = async (req, res) => {
         return res.status(500).json({ message: `Menu not found`, error: err })
     }
 }
+// Deletes the specified menu.
 const deleteMenu = async (req, res) => {
     let menuId = parseInt(req.params.id)
     // Vérification du param

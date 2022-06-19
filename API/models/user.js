@@ -26,43 +26,55 @@ const userSchema = new mongoose.Schema({
       max: 2048,
       min: 6,
     },
-    // address : { 
-    //   type: mongoose.SchemaTypes.ObjectId, 
-    //   required: false
-    // },
+    address : { 
+      type: mongoose.SchemaTypes.ObjectId, 
+    },
+    restaurant : { 
+      type: [mongoose.SchemaTypes.ObjectId], 
+    },
+    siren : { 
+      type: String, 
+    },
+    head_franchise : { 
+      type: mongoose.SchemaTypes.ObjectId, 
+    },
+    sub_franchise : { 
+      type: [mongoose.SchemaTypes.ObjectId], 
+    },
     phone: { 
       type: String, 
-      required: false 
     },
     role : { 
       type : String,
       default: "user",
-      enum: ["user", "supplier", "admin"]
+      enum: ["user", "supplier", "admin","franchisee","customer"]
     }
 });
 
-// userSchema.pre("save", function (next) {
-//   const user = this
+// Hash the user s password and salt.
+userSchema.pre("save", function (next) {
+  const user = this
 
-//   if (this.isModified("password") || this.isNew) {
-//     bcrypt.genSalt(10, function (err, salt) {
-//       if (err) {
-//         return next(err)
-//       } else {
-//         bcrypt.hash(user.password, salt, function(err, hash) {
-//           if (err) {
-//             return next(err)
-//           }
+  if (this.isModified("password") || this.isNew) {
+    console.log(user.password)
+    bcrypt.genSalt(10, function (err, salt) {
+      if (err) {
+        return next(err)
+      } else {
+        bcrypt.hash(user.password, salt, function(err, hash) {
+          if (err) {
+            return next(err)
+          }
 
-//           user.password = hash
-//           next()
-//         })
-//       }
-//     })
-//   } else {
-//     return next()
-//   }
-// })
+          user.password = hash
+          next()
+        })
+      }
+    })
+  } else {
+    return next()
+  }
+}) 
 
 
 module.exports = mongoose.model('User', userSchema)

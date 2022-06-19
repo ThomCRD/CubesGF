@@ -7,6 +7,7 @@ const mongoOpt = {
   useUnifiedTopology: true,
 }
 
+// Connect to MongoDB.
 const connectDB = async () => {
   try {
       await mongoose.connect(mongoUri, mongoOpt);

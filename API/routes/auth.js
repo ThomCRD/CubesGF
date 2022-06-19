@@ -2,7 +2,6 @@
 
 const express = require('express')
 const {
-  sendLogin, 
   userAuth, 
   checkRole,
   userLogin, 
@@ -25,54 +24,53 @@ const router = express.Router()
 // router.post('/login', sendLogin )
 
 // Users Registeration Route
-router.post("/register-user", async (req, res) => {
-    console.log(req.body)
-    await userRegister(req.body, "user", res);
-});
+// router.put("/register-user", async (req, res) => {
+//     await userRegister(req.body,"user", res);
+// });
 
-// Users Login Route
-router.post("/login-user", async (req, res) => {
-    await userLogin(req.body, "user", res);
-});
+// // Users Login Route
+// router.post("/login-user", async (req, res) => {
+//     await userLogin(req.body, "user", res);
+// });DEPRECIATE
 
 // Admin Registration Route
-router.post("/register-admin", async (req, res) => {
+router.put("/register-admin", async (req, res) => {
   await userRegister(req.body, "admin", res);
 });
 
 // Admin Registration Route
 router.post("/login-admin", async (req, res) => {
-  await userRegister(req.body, "admin", res);
+  await userLogin(req.body, "admin", res);
 });
 
 // Admin Registration Route
-router.post("/register-customer", async (req, res) => {
+router.put("/register-customer", async (req, res) => {
   await userRegister(req.body, "customer", res);
 });
 
 // Admin Registration Route
 router.post("/login-customer", async (req, res) => {
-  await userRegister(req.body, "customer", res);
+  await userLogin(req.body, "customer", res);
 });
 
 // Admin Registration Route
-router.post("/register-franchisee", async (req, res) => {
+router.put("/register-franchisee", async (req, res) => {
   await userRegister(req.body, "franchisee", res);
 });
 
 // Admin Registration Route
 router.post("/login-franchisee", async (req, res) => {
-  await userRegister(req.body, "franchisee", res);
+  await userLogin(req.body, "franchisee", res);
 });
 
 // Admin Registration Route
-router.post("/register-supplier", async (req, res) => {
+router.put("/register-supplier", async (req, res) => {
   await userRegister(req.body, "supplier", res);
 });
 
 // Admin Registration Route
 router.post("/login-supplier", async (req, res) => {
-  await userRegister(req.body, "supplier", res);
+  await userLogin(req.body, "supplier", res);
 });
 
 // Profile Route
@@ -81,13 +79,13 @@ router.get("/profile", userAuth, async (req, res) => {
 });
 
 // Users Protected Route
-router.get(
-  "/user-protectd",
-  userAuth,
-  checkRole(["user"]),
-  async (req, res) => {
-    return res.json("Hello User");
-  }
-);
+// router.get(
+//   "/user-protectd",
+//   userAuth,
+//   checkRole(["user"]),
+//   async (req, res) => {
+//     return res.json("Hello User");
+//   }
+// );
 
 module.exports = router

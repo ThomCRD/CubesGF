@@ -2,6 +2,7 @@ const User = require('../models/user')
 
 
 
+// Get all users.
 const getAllUsers = async (req, res) => {
     try {
         let user = await User.find()
@@ -11,6 +12,7 @@ const getAllUsers = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Get a user by id
 const getUser = async (req, res) => {
     let userId = parseInt(req.params.id)
     // Vérification du param
@@ -29,24 +31,30 @@ const getUser = async (req, res) => {
     }
 
 }
-const createUser = async (req, res) => {
-    try {
-        const { email, password, firstName, lastName, phone } = req.body
+/** 
+ * * ! DEPRECIATE 
+ * */
 
-        // Validation des données reçues
-        if ( !email || !password || !firstName || !lastName || !phone) {
-            return res.status(400).json({ message: `Data Missing` })
-        }
-        let user = await User.findOne({ email: email })
-        if (user !== null) {
-            return res.status(400).json({ message: `The user does exist` })
-        }
-        user = await User.create(req.body)
-        return res.json({ message: `User created`, data: user })
-    } catch (err) {
-        return res.status(500).json({ message: `Database error`, error: err })
-    }
-}
+// const createUser = async (req, res) => {
+//     try {
+//         const { email, password, firstName, lastName, phone } = req.body
+
+//         // Validation des données reçues
+//         if ( !email || !password || !firstName || !lastName || !phone) {
+//             return res.status(400).json({ message: `Data Missing` })
+//         }
+//         let user = await User.findOne({ email: email })
+//         if (user !== null) {
+//             return res.status(400).json({ message: `The user does exist` })
+//         }
+//         user = await User.create(req.body)
+//         return res.json({ message: `User created`, data: user })
+//     } catch (err) {
+//         return res.status(500).json({ message: `Database error`, error: err })
+//     }
+// } 
+
+// Updates a user.
 const updateUser = async (req, res) => {
     let userId = parseInt(req.params.id)
     // Vérification du param
@@ -63,6 +71,7 @@ const updateUser = async (req, res) => {
         return res.status(500).json({ message: `User not found`, error: err })
     }
 }
+// Deletes a user.
 const deleteUser = async (req, res) => {
     let userId = parseInt(req.params.id)
     // Vérification du param
@@ -80,4 +89,4 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = { getAllUsers, getUser, createUser, updateUser, deleteUser }
+module.exports = { getAllUsers, getUser, updateUser, deleteUser }

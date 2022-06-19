@@ -13,6 +13,7 @@ const routesPromotion = require('./API/routes/promotion');
 const routesMenu = require('./API/routes/menu');
 const bodyParser = require("body-parser");
 
+// Extends the express app with a new app.
 const app = express();
 app.use(express.json()); // Parse Json
 
@@ -22,10 +23,12 @@ const passport = require("passport");
 app.use(passport.initialize());
 require("./API/middlewares/passport")(passport);
 
+// Applies CORS to the application.
 app.use(cors())
-app.use(express.json()); // Parse Json
+// Applies the extended parser to the request body.
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Applies the api routes.
 app.use('/api', routesComment)
 app.use('/api', routesUser)
 app.use('/api', routesAuth)
@@ -38,6 +41,7 @@ app.use('/api', routesPromotion)
 app.use('/api', routesMenu)
 
 
+// Starts the server.
 app.listen( process.env.PORT, () => {
     console.log(`Server Started at ${process.env.PORT}`)
 })

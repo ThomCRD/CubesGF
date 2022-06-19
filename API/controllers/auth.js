@@ -42,7 +42,7 @@ const User = require("../models/user");
 /**
  * @DESC To register the user (ADMIN, SUPER_ADMIN, USER)
  */
-const userRegister = async (userDets, role, res) => {
+const userRegister = async (userDets,role, res) => {
   try {
     // validate the email
     let emailNotRegistered = await validateEmail(userDets.email);
@@ -53,19 +53,18 @@ const userRegister = async (userDets, role, res) => {
       });
     }
 
-    // Get the hashed password
-    const password = await bcrypt.hash(userDets.password, 12);
     // create a new user
+    // const role ="user"
     const newUser = new User({
       ...userDets,
-      password,
       role
     });
 
-    await newUser.save();
-    console.log(newUser)
+    userDets.body = newUser
+    let user = await User.create(userDets.body);
     return res.status(201).json({
-      message: "Hurry! now you are successfully registred. Please nor login.",
+      message: 'Hurry! now you are successfully registred. Please nor login.',
+      data: user,
       success: true
     });
   } catch (err) {
@@ -150,11 +149,13 @@ const checkRole = roles => (req, res, next) =>
     ? res.status(401).json("Unauthorized")
     : next();
 
+    // Checks if a user is logged in.
 const validateEmail = async email => {
   let user = await User.findOne({ email });
   return user ? false : true;
 };
 
+// Converts a user object to a JSON - ready representation.
 const serializeUser = user => {
   return {
     firstName: user.firstName,
@@ -170,9 +171,9 @@ const serializeUser = user => {
 };
 
 module.exports = {
-  userAuth,
   checkRole,
   userLogin,
   userRegister,
-  serializeUser
+  serializeUser,
+  userAuth
 };
