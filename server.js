@@ -12,6 +12,8 @@ const routesOrder = require('./API/routes/order');
 const routesPromotion = require('./API/routes/promotion');
 const routesMenu = require('./API/routes/menu');
 const bodyParser = require("body-parser");
+const swaggerUi = require('swagger-ui-express'),
+swaggerDocument = require('./swagger.json');
 
 const app = express();
 app.use(express.json()); // Parse Json
@@ -37,6 +39,12 @@ app.use('/api', routesOrder)
 app.use('/api', routesPromotion)
 app.use('/api', routesMenu)
 
+//swagger
+app.use(
+    '/api-docs',
+    swaggerUi.serve, 
+    swaggerUi.setup(swaggerDocument)
+  );
 
 app.listen( process.env.PORT, () => {
     console.log(`Server Started at ${process.env.PORT}`)
