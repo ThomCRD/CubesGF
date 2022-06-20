@@ -1,14 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="success">
     <img class="displayed"  height="50px" width="50px" src="../../assets/icon/goodfood-market--600.png" routerLink="/co">
-      <ion-icon size="large" slot="secondary" name="cart" routerLink="/cart"></ion-icon>
+    <ion-icon (click)="openCart()" size="large" slot="secondary" name="cart"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="light">
-<p style="font-weight:bold; font-size: 25px;">Restaurant name</p>
+<p style="font-weight:bold; font-size: 25px;">Selected restaurant</p>
+<p style="margin-left:10px;">Food Plus <ion-text routerLink="/search" style="font-weight:bold; margin-left:55%">Edit</ion-text></p>
 <ion-list>
-  <ion-list-header>Home delivery</ion-list-header>
 
   <ion-item>
     <div class="icon"><img src="../../assets/icon/21004.png"></div>
@@ -35,14 +35,14 @@
   </ion-item>
 
   <ion-item>
-    <div class="icon"><img src="../../assets/icon/3831114.png"></div>
-    <ion-label>Salads</ion-label>
+    <div class="icon"><img src="../../assets/icon/1691759.png"></div>
+    <ion-label>Dessert</ion-label>
     <ion-icon name="chevron-forward-outline"></ion-icon>
   </ion-item>
 
   <ion-item>
     <div class="icon"><img src="../../assets/icon/2933054.png"></div>
-    <ion-label>FastFood</ion-label>
+    <ion-label>Dish</ion-label>
     <ion-icon name="chevron-forward-outline"></ion-icon>
   </ion-item>
 
@@ -60,10 +60,6 @@
   </ion-tab-button>
 
   <ion-tab-button tab="tab3">
-    <ion-icon name="fast-food-outline" routerLink="/food">Orders</ion-icon>
-  </ion-tab-button>
-
-  <ion-tab-button tab="tab4">
     <ion-icon name="person-circle-outline" routerLink="/user">Account</ion-icon>
   </ion-tab-button>
 </ion-tab-bar>

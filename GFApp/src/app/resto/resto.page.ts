@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.page.html',
-  styleUrls: ['./menu.page.scss'],
+  selector: 'app-resto',
+  templateUrl: './resto.page.html',
+  styleUrls: ['./resto.page.scss'],
 })
-export class MenuPage implements OnInit {
+export class RestoPage implements OnInit {
 
   // Constructor for modal controller.
   constructor(

@@ -39,6 +39,26 @@ const routes: Routes = [
     path: 'sub',
     loadChildren: () => import('./sub/sub.module').then( m => m.SubPageModule)
   },
+  {
+    path: 'deco',
+    loadChildren: () => import('./deco/deco.module').then( m => m.DecoPageModule)
+  },
+  {
+    path: 'enter',
+    loadChildren: () => import('./enter/enter.module').then( m => m.EnterPageModule)
+  },
+  {
+    path: 'resto',
+    loadChildren: () => import('./resto/resto.module').then( m => m.RestoPageModule)
+  },
+  {
+    path: 'pay',
+    loadChildren: () => import('./pay/pay.module').then( m => m.PayPageModule)
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sub',
-  templateUrl: './sub.page.html',
-  styleUrls: ['./sub.page.scss'],
+  selector: 'app-deco',
+  templateUrl: './deco.page.html',
+  styleUrls: ['./deco.page.scss'],
 })
-export class SubPage implements OnInit {
-
+export class DecoPage implements OnInit {
 
   // Creates a constructor.
   constructor() { }

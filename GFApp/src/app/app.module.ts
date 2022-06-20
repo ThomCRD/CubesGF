@@ -9,11 +9,14 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MenuPageModule } from './menu/menu.module';
 import { AuthService } from './auth.service';
+import { RestoPageModule } from './resto/resto.module';
+import { CartPageModule } from './cart/cart.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, FormsModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, MenuPageModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule,
+     CartPageModule, MenuPageModule, RestoPageModule],
 providers: [AuthService,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
 })

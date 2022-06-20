@@ -3,16 +3,21 @@ import { ModalController } from '@ionic/angular';
 import { CartPage } from '../cart/cart.page';
 
 @Component({
-  selector: 'app-food',
-  templateUrl: './food.page.html',
-  styleUrls: ['./food.page.scss'],
+  selector: 'app-pay',
+  templateUrl: './pay.page.html',
+  styleUrls: ['./pay.page.scss'],
 })
-export class FoodPage implements OnInit {
+export class PayPage implements OnInit {
 
   // Constructor for modal controller.
   constructor(
     public modalController: ModalController
-  ) {}
+  ) { }
+
+  // Dismisses the modal.
+  close() {
+    this.modalController.dismiss();
+  }
 
   // Opens a cart page.
   async openCart() {

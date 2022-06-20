@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { CartPage } from '../cart/cart.page';
 
 @Component({
   selector: 'app-search',
@@ -10,33 +12,46 @@ export class SearchPage implements OnInit {
   searchTerm: string;
   restaurant = [
     {
-      "place":"Paris",
-      "department":"75"
+      place:'Paris',
+      name:'Food CO'
     },
     {
-      "place":"Pau",
-      "department":"64"
+      place:'Pau',
+      name:'GreenField'
     },
     {
-      "place":"Toulouse",
-      "department":"31"
+      place:'Toulouse',
+      name:'Eat enterprise'
     },
     {
-      "place":"Lyon",
-      "department":"69"
+      place:'Lyon',
+      name:'Hungry lines'
     },
     {
-      "place":"Bordeaux",
-      "department":"33"
+      place:'Pau',
+      name:'Food Plus'
     },
     {
-      "place":"Nice",
-      "department":"06"
+      place:'Nice',
+      name:'Healthy Wave'
     },
   ];
 
-  constructor() { }
+  // Constructor for modal controller.
+  constructor(
+    public modalController: ModalController
+  ) {}
 
+  // Opens a cart page.
+  async openCart() {
+    const modal = await this.modalController.create({
+      component: CartPage
+
+    });
+    return await modal.present();
+  }
+
+  // ngOnInit - ng on init
   ngOnInit() {
   }
 
