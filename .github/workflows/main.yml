@@ -11,7 +11,26 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-front:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./GFApp/
+        
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        
+    - name: Install node.js packages
+      run: npm install
+      
+    - run: npm ci
+    - run: npm run build --if-present
+    
+  build-back:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +47,7 @@ jobs:
     - run: npm run build --if-present
 
   test-back:
-    needs: [ build ]
+    needs: [ build-back ]
     runs-on: ubuntu-latest
 
     steps:
@@ -46,7 +65,7 @@ jobs:
     - run: npm test
 
   test-front:
-    needs: [ build ]
+    needs: [ build-front ]
     runs-on: ubuntu-latest
     defaults:
       run:
