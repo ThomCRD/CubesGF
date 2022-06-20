@@ -14,6 +14,7 @@ const orderSchema = new mongoose.Schema({
     created_at: {type: Date, default: Date.now},
 });
 
+// Sets the order schema.
 orderSchema.pre('save', function(next){
     now = new Date();
     if(!this.created_at) {

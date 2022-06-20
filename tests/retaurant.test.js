@@ -345,7 +345,6 @@ describe("Test controler Restaurant", () => {
         let mockResGET = nodeMockHttp.createResponse()
         await controlerRestaurant.getRestaurantfindByName(mockReqGET, mockResGET)
         let resultGET = JSON.parse(mockResGET._getData())
-        console.log(resultGET)
         let statusCommentGET = mockResGET._getStatusCode()
         expect(resultGET.data[0].name).toEqual("La casa de papon")
         expect(statusCommentGET).toEqual(200)

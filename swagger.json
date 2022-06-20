@@ -1,0 +1,480 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "GoodFood",
+        "description": "This is the documentation for the GoodFood API"
+    },
+    "host": "localhost:9000",
+    "basePath": "/API",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API for users in the system"
+        },
+        {
+            "name": "Order",
+            "description": "API for order in the system"
+        },
+        {
+            "name": "Comment",
+            "description": "API for comment in the system"
+        },
+        {
+            "name": "Restaurant",
+            "description": "API for restaurant in the system"
+        },
+        {
+            "name": "Promotion",
+            "description": "API for promotion in the system"
+        },
+        {
+            "name": "Menu",
+            "description": "API for menu in the system"
+        },
+        {
+            "name": "Address",
+            "description": "API for address in the system"
+        },
+        {
+            "name": "Franchisee order",
+            "description": "API for franchisee order in the system"
+        },
+        {
+            "name": "Element",
+            "description": "API for element in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/users/findByEmail/{email}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Find user by email",
+                "parameters": [
+                    {
+                        "name": "mail",
+                        "in": "path",
+                        "required": true,
+                        "description": "Email of user that we want to find",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/newCustomer": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create new user",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "description": "User that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/createWithArray": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create new users",
+                "parameters": [
+                    {
+                        "name": "users",
+                        "in": "body",
+                        "required": true,
+                        "description": "Users that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New users is created",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "patch": {
+                "summary": "Update user",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of user that we want to find",
+                    "type": "number"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by an id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete user with given ID",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is deleted"
+                    }
+                }
+            }
+        },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get all orders",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Orders"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/findMine": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get my orders",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Orders"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/findByUser/{userId}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "parameters": [
+                    {
+                        "name": "userid",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id of the user that we want to find user's orders",
+                        "type": "number"
+                    }
+                ],
+                "summary": "Get orders of the user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Orders"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/findByRestaurant/{restaurantId}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "parameters": [
+                    {
+                        "name": "restaurantId",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id of the Restaurant that we want to find restaurant's orders",
+                        "type": "number"
+                    }
+                ],
+                "summary": "Get orders of the restaurant",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Orders"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/{id}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id of the order that we want to find",
+                        "type": "number"
+                    }
+                ],
+                "summary": "Get order with the id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                }
+            }
+        },"/order": {
+            "put": {
+                "summary": "Create new order",
+                "tags": [
+                    "Order"
+                ],
+                "description": "Create new order",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "body",
+                        "required": true,
+                        "description": "Order that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New order is created",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update order",
+                "tags": [
+                    "Order"
+                ],
+                "description": "Update order",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "body",
+                        "description": "Order with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "required": [
+                "_id",
+                "first_name",
+                "role"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "number",
+                    "uniqueItems": true
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "number"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "restaurant": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "siren": {
+                    "type": "string"
+                },
+                "head_franchisee": {
+                    "type": "number"
+                },
+                "sub_franchisee": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "Users": {
+            "type": "array",
+            "$ref": "#/definitions/User"
+        },
+        "Order": {
+            "required": [
+                "_id",
+                "customer",
+                "restaurant",
+                "delivery_time",
+                "total",
+                "menu"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "number",
+                    "uniqueItems": true
+                },
+                "customer": {
+                    "type": "number"
+                },
+                "restaurant": {
+                    "type": "number"
+                },
+                "promotion": {
+                    "type": "number"
+                },
+                "delivery_time": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "number"
+                },
+                "menu": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+        "Orders": {
+            "type": "array",
+            "$ref": "#/definitions/Order"
+        }
+    }
+}

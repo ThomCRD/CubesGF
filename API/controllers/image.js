@@ -4,6 +4,7 @@ const multer = require('multer');
 const Image = require('../models/image')
 
 
+// Get all images.
 const getAllImages = async (req, res, next) => {
   try {
     const image = await Image.find({}).lean().exec();
@@ -12,6 +13,7 @@ const getAllImages = async (req, res, next) => {
     return res.status(500).json({ message: `Database error`, error: err })
   }
 }
+// Get an image from the database
 const getImage = async (req, res, next) => {
   const { id: _id } = req.params;
   // Vérification du param
@@ -29,6 +31,7 @@ const getImage = async (req, res, next) => {
     return res.status(500).json({ message: `Erreur database`, error: err })
   }
 }
+// Delete an image
 const deleteImage = async (req, res) => {
   let ImageId = parseInt(req.params.id)
   // Vérification du param

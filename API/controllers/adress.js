@@ -1,6 +1,7 @@
 const Adress = require('../models/adress')
 
 
+
 const getadresses =  async (req, res) => {
   Adress.find()  
     try {
@@ -10,6 +11,7 @@ const getadresses =  async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Get an address by id.
 const getAdress = async (req, res) => {
     let adressId = parseInt(req.params.id)
     // Vérification du param
@@ -26,6 +28,7 @@ const getAdress = async (req, res) => {
         return res.status(500).json({ message: `Erreur database`, error: err })
     }
   }
+  // Create a new address.
 const createAdress = async (req, res) => {
   try {
     const { country, city,street,postal_code } = req.body
@@ -44,6 +47,7 @@ const createAdress = async (req, res) => {
     return res.status(500).json({ message: `Database error`, error: err })
 }
 }
+// Updates an address.
 const updateAdress = async (req, res) => {
   let adressId = parseInt(req.params.id)
   // Vérification du param
@@ -60,6 +64,7 @@ const updateAdress = async (req, res) => {
      return res.status(500).json({ message: `Adress not found`, error: err })
  }
 }
+// Delete an address
 const deleteAdress = async (req, res) => {
   let adressId = parseInt(req.params.id)
   // Vérification du param

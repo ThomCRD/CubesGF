@@ -1,6 +1,7 @@
 const Element = require('../models/element')
 
 
+// Find all the elements in the database
 const getElements =  async (req, res) => {
     try {
        let element = await Element.find()
@@ -9,6 +10,7 @@ const getElements =  async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Get an element by id.
 const getElement = async (req, res) => {
   let elementId = parseInt(req.params.id)
   // Vérification du param
@@ -25,6 +27,7 @@ const getElement = async (req, res) => {
       return res.status(500).json({ message: `Erreur database`, error: err })
   }
 }
+// Create a new volume element.
 const createElement = async (req, res) => {
   try {
     const { name,volume } = req.body
@@ -39,6 +42,7 @@ const createElement = async (req, res) => {
     return res.status(500).json({ message: `Database error`, error: err })
 }
 }
+// Updates an existing element
 const updateElement = async (req, res) => {
   let elementId = parseInt(req.params.id)
   // Vérification du param
@@ -55,6 +59,7 @@ const updateElement = async (req, res) => {
      return res.status(500).json({ message: `Element not found`, error: err })
  }
 }
+// Delete an element
 const deleteElement = async (req, res) => {
   let elementId = parseInt(req.params.id)
   // Vérification du param

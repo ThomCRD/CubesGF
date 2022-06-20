@@ -1,6 +1,7 @@
 const Comment = require('../models/comment')
 
 
+// Get all the comments in the database.
 const getComments =  async (req, res) => {
     try {
        let comment = await Comment.find()
@@ -9,6 +10,7 @@ const getComments =  async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Get a single comment.
 const getComment = async (req, res) => {
   let commentId = parseInt(req.params.id)
   // Vérification du param
@@ -25,6 +27,7 @@ const getComment = async (req, res) => {
       return res.status(500).json({ message: `Erreur database`, error: err })
   }
 }
+// Find a comment by id
 const getCommentFindMine = async (req, res) => {
   let commentId = parseInt(req.params.id)
   // Vérification du param
@@ -41,6 +44,7 @@ const getCommentFindMine = async (req, res) => {
       return res.status(500).json({ message: `Erreur database`, error: err })
   }
 }
+// Get a comment by user.
 const getCommentFindByUser = async (req, res) => {
   let commentId = parseInt(req.params.id)
   // Vérification du param
@@ -57,6 +61,7 @@ const getCommentFindByUser = async (req, res) => {
       return res.status(500).json({ message: `Erreur database`, error: err })
   }
 }
+// Get a comment by its restaurant.
 const getCommentFindByRestaurant = async (req, res) => {
   let commentId = parseInt(req.params.id)
   // Vérification du param
@@ -73,6 +78,7 @@ const getCommentFindByRestaurant = async (req, res) => {
       return res.status(500).json({ message: `Erreur database`, error: err })
   }
 }
+// Create a new comment.
 const createComment = async (req, res) => {
   try {
     const { _iduser, _idRestaurant,contenuTexte,note } = req.body
@@ -91,6 +97,7 @@ const createComment = async (req, res) => {
     return res.status(500).json({ message: `Database error`, error: err })
 }
 }
+// Update a comment.
 const updateComment = async (req, res) => {
   let commentId = parseInt(req.params.id)
   // Vérification du param
@@ -107,6 +114,7 @@ const updateComment = async (req, res) => {
      return res.status(500).json({ message: `Comment not found`, error: err })
  }
 }
+// Delete a comment
 const deleteComment = async (req, res) => {
   let commentId = parseInt(req.params.id)
   // Vérification du param

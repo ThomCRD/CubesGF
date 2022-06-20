@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 /*******************isolate the token */
 const extractBearer = authorization => {
 
+        // Returns true if the authorization is a string.
     if(typeof authorization !== 'string'){
         return false
     }
@@ -19,11 +20,11 @@ const extractBearer = authorization => {
 
 /*****************************************/
 /************ Verification of token presence */
-
 const checkTokenMiddleware = (req , res, next) =>{
 
     const token = req.headers.authorization && extractBearer(req.headers.authorization)
 
+        // Get a Not Token.
     if(!token){
         return res.status(401).json({message:`Not Token`})
     }

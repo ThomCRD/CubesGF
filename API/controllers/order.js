@@ -52,6 +52,7 @@ const getOrderFindMine = async (req, res) => {
     }
 
 }
+// Get order find by user.
 const getOrderFindByUser = async (req, res) => {
     let orderId = parseInt(req.params.id)
     // Vérification du param
@@ -74,6 +75,7 @@ const getOrderFindByUser = async (req, res) => {
     }
 
 }
+// Get order find by restaurant.
 const getOrderFindByRestaurant = async (req, res) => {
     let orderIdRestaurant = parseInt(req.params.id)
     // Vérification du param
@@ -95,6 +97,7 @@ const getOrderFindByRestaurant = async (req, res) => {
     }
 
 }
+// Create a new order.
 const createOrder = async (req, res) => {
     try {
         const { customer, restaurant, promotion, menus, delivery_time, total } = req.body
@@ -112,6 +115,7 @@ const createOrder = async (req, res) => {
         return res.status(500).json({ message: `Database error`, error: err })
     }
 }
+// Delete an order
 const deleteOrder = async (req, res) => {
     let orderId = parseInt(req.params.id)
     // Vérification du param

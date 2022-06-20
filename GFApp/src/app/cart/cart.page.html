@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <img class="displayed" slot="start" height="50px" width="50px" src="../../assets/icon/goodfood-market--600.png" routerLink="/co">
+    <ion-icon size="large" slot="end" name="cart" routerLink="/cart"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" class="ion-padding">
+  <p style="font-weight:bold; font-size: 25px;">My order</p>
+
+</ion-content>
+
+<ion-tab-bar color="light" slot="bottom">
+  <ion-tab-button tab="tab1">
+    <ion-icon name="home" routerLink="/home">Home</ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button tab="tab2">
+    <ion-icon name="search" routerLink="/search">Search</ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button tab="tab3">
+    <ion-icon name="fast-food-outline" routerLink="/food">Orders</ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button tab="tab4">
+    <ion-icon name="person-circle-outline" routerLink="/user">Account</ion-icon>
+  </ion-tab-button>
+</ion-tab-bar>
