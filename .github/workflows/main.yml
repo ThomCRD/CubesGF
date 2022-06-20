@@ -45,7 +45,7 @@ jobs:
     - run: npm test
     
   test-e2e:
-    needs: [ build ]
+    needs: [ test ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -59,7 +59,6 @@ jobs:
           start: npm start
     
   sonarcloud:
-    needs: [ build ]
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
