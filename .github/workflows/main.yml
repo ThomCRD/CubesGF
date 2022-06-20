@@ -44,6 +44,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - run: npm coverage
 
   test-front:
     needs: [ build ]
@@ -86,6 +87,7 @@ jobs:
           start: npm start
     
   sonarcloud:
+    needs: [ test-front, test-back ]
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
