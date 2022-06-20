@@ -47,9 +47,12 @@ jobs:
   test-e2e:
     needs: [ test ]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./GFApp/
     steps:
       - name: Checkout
-        working-directory: ./GFApp/
+      - uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
