@@ -37,7 +37,7 @@ export class InfoPage implements OnInit {
     };
     console.log('post register with ' +body.firstName +body.lastName +body.email +body.password +body.phone);
 
-  return this.http.post('http://localhost:9000/API/register',body)
+  return this.http.put('http://localhost:9000/API/register-customer',body)
   .subscribe(
     data => {
     console.log('subuser data '+data);

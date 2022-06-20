@@ -11,13 +11,13 @@ export class AuthService {
 
   // Connect a new user.
   coUser(user){
-    return this.http.post<any>('/API/login', user);
+    return this.http.post<any>('/API/login-customer', user);
     //todo ici call function / route;
     //return this.app.post('/API/login', user);
   }
 
   // Register a sub - user
   subUser(user){
-    return this.http.post<any>('/API/register', user);
+    return this.http.put<any>('/API/register-customer', user);
   }
 }

@@ -39,13 +39,13 @@ export class CoPage implements OnInit {
       };
       console.log('post login with '+body.email);
 
-    return this.http.post('http://localhost:9000/API/login',body)
+    return this.http.post('http://localhost:9000/API/login-customer',body)
     .subscribe(
       data => {
       console.log('couser data '+data);
       this.navCtrl.navigateRoot('/enter');
      }, async error => {
-      console.log('subuser err'+error);
+      console.log('couser err'+error);
       const alert = this.alertCtrl.create({
         header: 'Error',
         subHeader: 'Missing or wrong Email or Password',
