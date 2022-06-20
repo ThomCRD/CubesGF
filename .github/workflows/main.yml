@@ -31,6 +31,9 @@ jobs:
 
   test-e2e:
     needs: [ build ]
+    defaults:
+      run:
+        working-directory: ./GFApp
     runs-on: ubuntu-latest
     steps:
      - uses: actions/checkout@v2
