@@ -67,7 +67,7 @@ jobs:
     - run: npm test
 
   test-e2e:
-    needs: [ test-front ]
+    needs: [ test-front, test-back ]
     defaults:
       run:
         working-directory: ./GFApp/
