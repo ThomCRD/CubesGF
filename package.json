@@ -7,8 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles ./tests",
-    "coverage": "jest --coverage"
+    "test": "jest --coverage --runInBand --detectOpenHandles ./tests",
     "start": "node server.js",
     "dev": "nodemon server.js",
     "cypress": ".\\node_modules\\.bin\\cypress open"
