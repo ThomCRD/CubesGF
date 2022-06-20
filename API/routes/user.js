@@ -8,7 +8,7 @@ router.get('/users', getAllUsers)
 
 router.get('/user/:id', getUser)
 
-router.put('/register', createUser) 
+router.post('/register', createUser) 
 
 router.patch('/user/:id',checkTokenMiddleware , updateUser) 
 

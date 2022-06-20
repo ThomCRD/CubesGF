@@ -1,12 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="success">
     <img class="displayed"  height="50px" width="50px" src="../../assets/icon/goodfood-market--600.png" routerLink="/co">
-      <ion-icon size="large" slot="secondary" name="cart" routerLink="/menu"></ion-icon>
+    <ion-icon (click)="openCart()" size="large" slot="secondary" name="cart"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="light">
-<p style="font-weight:bold; font-size: 25px;">User name</p>
+<p style="font-weight:bold; font-size: 25px;">User</p>
 <ion-list>
   <ion-list-header>Profile</ion-list-header>
   <ion-item>
@@ -46,7 +46,7 @@
 </ion-list>
 
 <div style="padding: 10px;">
-  <ion-button expand="block" color="light">
+  <ion-button routerLink="/deco" expand="block" color="light">
     <ion-label style="font-weight: bold;" color="dark">Log Out</ion-label>
   </ion-button>
 </div>
@@ -63,10 +63,6 @@
   </ion-tab-button>
 
   <ion-tab-button tab="tab3">
-    <ion-icon name="fast-food-outline" routerLink="/food">Orders</ion-icon>
-  </ion-tab-button>
-
-  <ion-tab-button tab="tab4">
     <ion-icon name="person-circle-outline" routerLink="/user">Account</ion-icon>
   </ion-tab-button>
 </ion-tab-bar>

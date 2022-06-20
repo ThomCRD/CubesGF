@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <ion-buttons slot="end">
+      <ion-button routerLink="/co">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" class="ion-padding">
+  <p style="font-weight:bold; font-size: 25px;">Please complete the following informations :</p>
+  <div class="padding">
+    <ion-item >
+      <ion-label style="font-weight: bold;" color="dark">First name</ion-label>
+      <ion-input [(ngModel)]="subUserData.firstName" name="firstName" style="font-weight: bold;" color="dark" type="firstName" placeholder="First name"></ion-input>
+    </ion-item>
+
+    <ion-item >
+      <ion-label style="font-weight: bold;" color="dark">Last name</ion-label>
+      <ion-input [(ngModel)]="subUserData.lastName" name="lastName" style="font-weight: bold;" color="dark" type="lastName" placeholder="Last name"></ion-input>
+    </ion-item>
+
+    <ion-item >
+      <ion-label style="font-weight: bold;" color="dark">E-mail</ion-label>
+      <ion-input [(ngModel)]="subUserData.email" name="email" style="font-weight: bold;" color="dark" type="mail" placeholder="E-mail adress"></ion-input>
+    </ion-item>
+
+    <ion-item >
+      <ion-label style="font-weight: bold;" color="dark">Password</ion-label>
+      <ion-input [(ngModel)]="subUserData.password" name="password" style="font-weight: bold;" color="dark" type="password" placeholder="Password"></ion-input>
+    </ion-item>
+
+    <ion-item >
+      <ion-label style="font-weight: bold;" color="dark">Phone</ion-label>
+      <ion-input [(ngModel)]="subUserData.phone" name="phone" style="font-weight: bold;" color="dark" type="phone" placeholder="Phone"></ion-input>
+    </ion-item>
+  </div>
+
+<ion-button style="margin-top:200px; margin-left:110px" (click)="subUser()">Continue</ion-button>
+</ion-content>

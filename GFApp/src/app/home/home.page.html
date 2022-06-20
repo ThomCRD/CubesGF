@@ -1,32 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="success">
     <img class="displayed"  height="50px" width="50px" src="../../assets/icon/goodfood-market--600.png" routerLink="/co">
-      <ion-icon size="large" slot="secondary" name="cart" routerLink="/cart"></ion-icon>
+      <ion-icon (click)="openCart()" size="large" slot="secondary" name="cart"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
   <p class="box-title"></p>
-  <div class="scroll-box" style="padding-bottom: 5%;">
-    <div class="icon">
-      <img src="../../assets/icon/Like_Favourite_Love_Health_Heart_Favourites_Favorite-512.webp">Favorites
-    </div>
-    <div class="icon">
-      <img src="../../assets/icon/2933054.png">FastFood
-    </div>
-    <div class="icon">
-      <img src="../../assets/icon/3831114.png">Salad
-    </div>
-    <div class="icon">
-      <img src="../../assets/icon/161542.png">Drink
-    </div>
-    <div class="icon">
-      <img src="../../assets/icon/1691759.png">Dessert
-    </div>
-    <div class="icon">
-      <img src="../../assets/icon/151409.png">Menu
-    </div>
-  </div>
+  <p style="font-weight:bold; font-size: 30px;">Welcome User</p>
 
   <p class="box-title"></p>
   <p style="font-weight:bold; font-size: 25px;">Popular order</p>
@@ -109,10 +90,6 @@
   </ion-tab-button>
 
   <ion-tab-button tab="tab3">
-    <ion-icon name="fast-food-outline" routerLink="/food">Orders</ion-icon>
-  </ion-tab-button>
-
-  <ion-tab-button tab="tab4">
     <ion-icon name="person-circle-outline" routerLink="/user">Account</ion-icon>
   </ion-tab-button>
 </ion-tab-bar>

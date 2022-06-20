@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <img class="displayed" slot="start" height="50px" width="50px" src="../../assets/icon/goodfood-market--600.png" routerLink="/co">
+    <ion-icon (click)="openCart()" size="large" slot="secondary" name="cart"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" class="ion-padding">
+  <p style="font-weight:bold; font-size: 25px;">Summary and payment</p>
+  <p style="margin-top: 25px; font-weight:bold">Order</p>
+  <p style="margin-top: 25px">1x Bottle of water 0.50€</p>
+  <p style="border-bottom: 1px solid black"></p>
+  <p style="margin-top: 25px; font-weight:bold">Delivery adress</p>
+  <p>8 Rue des Frères Charles et Alcide d' Orbigny, 64000 Pau <ion-text style="font-weight:bold; margin-left:85%">Edit</ion-text></p>
+  <p style="border-bottom: 1px solid black"></p>
+  <p style="margin-top: 25px; font-weight:bold">Delivery method</p>
+  <p>Home delivery <ion-text style="font-weight:bold; margin-left:85%">Edit</ion-text></p>
+  <p style="border-bottom: 1px solid black"></p>
+  <p style="margin-top: 25px; font-weight:bold">Payment</p>
+  <div class="scroll-box" style="padding-bottom: 5%;">
+    <div class="food">
+      <img src="../../assets/icon/unnamed.png">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/Visa-Logo-2005.jpg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/Logo_GIE-CB.jpg">
+    </div>
+    <div class="food">
+      <img src="../../assets/icon/918702ae5a_50168582_paypal.jpg">
+    </div>
+  </div>
+  <ion-button routerLink="/home">Validate</ion-button>
+</ion-content>

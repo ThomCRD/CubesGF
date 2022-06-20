@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="success">
     <img class="displayed" slot="start" height="50px" width="50px" src="../../assets/icon/goodfood-market--600.png" routerLink="/co">
-    <ion-icon size="large" slot="end" name="cart" routerLink="/cart"></ion-icon>
+    <ion-icon (click)="openCart()" size="large" slot="secondary" name="cart"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -17,8 +17,8 @@
 
   <ion-list>
     <ion-item *ngFor="let restaurant of restaurant | filter:searchTerm">
-      <ion-label> {{ restaurant.place }} </ion-label>
-      <ion-label> {{ restaurant.department }} </ion-label>
+      <ion-label routerLink="/food"> {{ restaurant.place }} </ion-label>
+      <ion-label routerLink="/food"> {{ restaurant.name }} </ion-label>
     </ion-item>
   </ion-list>
 
@@ -34,10 +34,6 @@
   </ion-tab-button>
 
   <ion-tab-button tab="tab3">
-    <ion-icon name="fast-food-outline" routerLink="/food">Orders</ion-icon>
-  </ion-tab-button>
-
-  <ion-tab-button tab="tab4">
     <ion-icon name="person-circle-outline" routerLink="/user">Account</ion-icon>
   </ion-tab-button>
 </ion-tab-bar>
